@@ -16,7 +16,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { ThemedText } from '@/components/themed-text';
-import { Layout, Palette, Radius, Spacing, withAlpha } from '@/theme';
+import { Palette, Radius, Spacing, contentWidth, withAlpha } from '@/theme';
 
 /** How long each slide holds before advancing on its own. */
 const DWELL_MS = 5000;
@@ -104,8 +104,9 @@ function HeroCarouselBase() {
   // mid-sentence is the one thing an auto-carousel must never do.
   const [paused, setPaused] = useState(false);
 
-  // Matches the Screen shell's gutter so the card lines up with everything below it.
-  const slideWidth = Math.min(width, Layout.maxContentWidth) - Layout.screenPadding * 2;
+  // Matches the Screen shell's content box exactly, so a slide fills the scroller rather
+  // than leaving a slice of its neighbour permanently in view.
+  const slideWidth = contentWidth(width);
 
   useEffect(() => {
     // Keyed on `index`, so the clock restarts after *any* change — a swipe or a dot tap

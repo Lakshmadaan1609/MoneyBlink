@@ -16,7 +16,7 @@ export {
   type ThemeColor,
 } from './colors';
 export { FontAssets, FontFamily, Typography, type TextVariant } from './typography';
-export { Layout, Motion, Radius, Spacing } from './spacing';
+export { Layout, Motion, Radius, Spacing, contentInset, contentWidth } from './spacing';
 export {
   AVATAR_ASPECT,
   AVATAR_BACKDROP,

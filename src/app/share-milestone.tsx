@@ -19,7 +19,7 @@ import { Screen } from '@/components/ui/screen';
 import { milestoneCaption } from '@/domain/share';
 import { firstName } from '@/domain/validation';
 import { select, useFuture } from '@/store/future-store';
-import { Layout, Palette, Radius, Spacing } from '@/theme';
+import { Layout, Palette, Radius, Spacing, contentWidth } from '@/theme';
 import type { ComponentType } from 'react';
 
 type Target = 'download' | 'instagram' | 'whatsapp' | 'more';
@@ -49,8 +49,7 @@ export default function ShareMilestoneScreen() {
   const [busy, setBusy] = useState<Target | 'share' | null>(null);
   const [outcome, setOutcome] = useState<Outcome>(null);
 
-  const available = Math.min(width, Layout.maxContentWidth) - Layout.screenPadding * 2;
-  const cardWidth = Math.min(available, 340);
+  const cardWidth = Math.min(contentWidth(width), 340);
 
   const caption = milestoneCaption({
     streakDays: streak.current,

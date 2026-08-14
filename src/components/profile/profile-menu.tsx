@@ -31,7 +31,7 @@ import { stageFor } from '@/domain/evolution';
 import { firstName } from '@/domain/validation';
 import { pluralDays } from '@/lib/format';
 import { actions, select, useFuture } from '@/store/future-store';
-import { Layout, Palette, Radius, Spacing, withAlpha } from '@/theme';
+import { Layout, Palette, Radius, Spacing, contentInset, withAlpha } from '@/theme';
 
 /** Sits just under the header row the trigger lives in. */
 const HEADER_OFFSET = 52;
@@ -166,7 +166,11 @@ function ProfileMenuBase() {
             panelStyle,
             {
               top: insets.top + HEADER_OFFSET,
-              right: Layout.screenPadding,
+              // Aligned to the content column's right edge rather than the window's. The
+              // trigger lives inside that column, so on a wide browser a fixed
+              // `screenPadding` stranded the panel hundreds of pixels away from the avatar
+              // that opened it. On a phone the two are the same number.
+              right: contentInset(width),
               width: panelWidth,
             },
           ]}

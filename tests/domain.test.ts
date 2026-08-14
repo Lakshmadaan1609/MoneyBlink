@@ -62,6 +62,9 @@ import {
   validateOtp,
   validatePhone,
 } from '../src/domain/validation.ts';
+// Layout tokens are plain arithmetic with no imports of their own, so the responsive
+// sizing rules are unit-testable in exactly the same way the domain is.
+import { Layout, contentInset, contentWidth } from '../src/theme/spacing.ts';
 
 let failures = 0;
 
@@ -421,6 +424,48 @@ ok('and does not boast about zero', !coldCaption.includes('0 days'));
 
 check('a filename is stable per streak', cardFilename(47), 'blinkmoney-streak-47.png');
 check('and survives a negative', cardFilename(-3), 'blinkmoney-streak-0.png');
+
+/* ---------------- responsive layout ---------------- */
+
+// The bug this locks: `Screen` pads the viewport and *then* caps the padded box, so the
+// cap has to apply to the already-padded width. Capping first and subtracting padding
+// afterwards is right only while the viewport is narrower than the cap — on a desktop
+// browser it returned 512 for a box that was actually 560, and a permanent slice of the
+// next hero slide sat in view.
+for (const [viewport, want] of [
+  [320, 272], // small phone — below the cap, so padding is the only reduction
+  [390, 342], // typical phone
+  [560, 512], // exactly the cap, still padding-bound
+  [608, 560], // the crossover: padded width first reaches the cap
+  [1024, 560], // tablet — capped
+  [1917, 560], // desktop browser — capped, and the case that was wrong
+] as [number, number][]) {
+  check(`contentWidth(${viewport})`, contentWidth(viewport), want);
+}
+
+ok(
+  'content width never exceeds the readable cap',
+  [320, 390, 560, 768, 1024, 1440, 1917, 3840].every((w) => contentWidth(w) <= Layout.maxContentWidth),
+);
+ok(
+  'content width never exceeds the viewport it sits in',
+  [320, 390, 560, 768, 1024, 1440, 1917, 3840].every((w) => contentWidth(w) <= w),
+);
+ok(
+  'content width only grows with the viewport',
+  [320, 390, 560, 608, 1024, 1917].every((w, i, all) =>
+    i === 0 ? true : contentWidth(w) >= contentWidth(all[i - 1]!),
+  ),
+);
+
+// A menu anchored to the window has to be inset by this to stay attached to the column
+// its trigger lives in. On a phone the two are the same number; on desktop they are not.
+check('contentInset on a phone equals the gutter', contentInset(390), Layout.screenPadding);
+check('contentInset on desktop reaches the column edge', contentInset(1917), (1917 - 560) / 2);
+ok(
+  'an anchored panel always lands inside the viewport',
+  [320, 390, 768, 1917].every((w) => contentInset(w) * 2 + contentWidth(w) <= w + 0.5),
+);
 
 /* ---------------- summary ---------------- */
 

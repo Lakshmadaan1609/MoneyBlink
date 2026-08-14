@@ -15,7 +15,7 @@ import {
 import { ThemedText } from '@/components/themed-text';
 import { BORROW_RATE, MIN_DAILY_AMOUNT } from '@/domain/simulation';
 import { formatINR, formatPercent } from '@/lib/format';
-import { Accent, Layout, Palette, Radius, Spacing, withAlpha } from '@/theme';
+import { Accent, Palette, Radius, Spacing, contentWidth, withAlpha } from '@/theme';
 
 type Feature = {
   key: string;
@@ -93,8 +93,7 @@ const FEATURES: Feature[] = [
  */
 function FeatureGridBase() {
   const { width } = useWindowDimensions();
-  const available = Math.min(width, Layout.maxContentWidth) - Layout.screenPadding * 2;
-  const cardWidth = (available - Spacing.three) / 2;
+  const cardWidth = (contentWidth(width) - Spacing.three) / 2;
 
   return (
     <View>

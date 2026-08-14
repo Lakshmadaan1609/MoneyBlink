@@ -14,7 +14,7 @@ import {
   type IconProps,
 } from '@/components/brand/icons';
 import { ThemedText } from '@/components/themed-text';
-import { Palette, Radius, Spacing, withAlpha } from '@/theme';
+import { Layout, Palette, Radius, Spacing, withAlpha } from '@/theme';
 
 /** Route name → icon. Anything unmapped falls back rather than rendering a blank slot. */
 const ICONS: Record<string, ComponentType<IconProps>> = {
@@ -120,7 +120,17 @@ const styles = StyleSheet.create({
     paddingTop: Spacing.two,
     paddingHorizontal: Spacing.two,
   },
-  row: { flexDirection: 'row', alignItems: 'stretch' },
+  // Capped and centred to match the content column above it. The bar's background and
+  // hairline still span the viewport — it is the chrome of the window — but letting the
+  // tabs themselves stretch across a desktop browser turned a 44pt target into a 380pt
+  // one and detached the navigation from the column it belongs to.
+  row: {
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    width: '100%',
+    maxWidth: Layout.maxContentWidth,
+    alignSelf: 'center',
+  },
   pill: {
     position: 'absolute',
     top: 0,

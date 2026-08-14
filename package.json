@@ -50,6 +50,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "expo lint",
+    "icons": "node scripts/generate-icons.mjs",
     "test": "node --experimental-strip-types --no-warnings tests/domain.test.ts && node --experimental-strip-types --no-warnings tests/projection.test.ts"
   },
   "private": true

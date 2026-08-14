@@ -3,18 +3,11 @@ import { memo, type ReactNode } from 'react';
 import { View } from 'react-native';
 import Svg, { Defs, RadialGradient, Rect, Stop } from 'react-native-svg';
 
-/**
- * Where the mask is solid, as fractions of the box.
- *
- * The default is centred and symmetric — the right choice when an avatar floats on a
- * surface with room on every side. Callers that sit the art flush into a corner push the
- * centre toward that corner instead, so the flush edges stay opaque and only the inner
- * ones dissolve.
- */
-export type MaskFocus = { cx: string; cy: string; r: string };
+import { MASK_CENTRED, type MaskFocus } from './avatar-mask-focus';
 
-export const MASK_CENTRED: MaskFocus = { cx: '50%', cy: '44%', r: '62%' };
-export const MASK_BOTTOM_RIGHT: MaskFocus = { cx: '62%', cy: '60%', r: '74%' };
+// Re-exported so `./avatar-mask` presents the same surface on every platform — the web
+// implementation in `avatar-mask.web.tsx` does the same.
+export { MASK_BOTTOM_RIGHT, MASK_CENTRED, type MaskFocus } from './avatar-mask-focus';
 
 type AvatarMaskProps = {
   width: number;
