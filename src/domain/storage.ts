@@ -16,7 +16,7 @@ import type { AppState, OnboardingStep } from './types';
 const STORAGE_KEY = 'futureos.state.v1';
 
 /** Bump when the persisted shape changes, and add a migration below. */
-export const SCHEMA_VERSION = 2;
+export const SCHEMA_VERSION = 3;
 
 export const INITIAL_STATE: AppState = {
   schemaVersion: SCHEMA_VERSION,
@@ -27,6 +27,7 @@ export const INITIAL_STATE: AppState = {
   loans: [],
   streak: INITIAL_STREAK,
   dayOffset: 0,
+  referralsAccepted: 0,
   onboarded: false,
 };
 
@@ -67,6 +68,12 @@ function migrate(state: AppState): AppState {
   if (next.schemaVersion < 2) {
     const retired = next.onboardingStep as OnboardingStep | 'gender';
     if (retired === 'gender') next = { ...next, onboardingStep: 'details' };
+  }
+
+  // v3 added referrals. Backfilled rather than left undefined, because the reward ladder
+  // does arithmetic on it and `undefined + 1` renders as NaN on a rewards screen.
+  if (next.schemaVersion < 3 || typeof next.referralsAccepted !== 'number') {
+    next = { ...next, referralsAccepted: 0 };
   }
 
   return { ...next, schemaVersion: SCHEMA_VERSION };

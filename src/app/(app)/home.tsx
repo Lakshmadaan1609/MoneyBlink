@@ -6,6 +6,8 @@ import { Logo } from '@/components/brand/logo';
 import { FutureAvatar } from '@/components/future-self/future-avatar';
 import { useAvatarState } from '@/components/future-self/use-avatar-state';
 import { FeatureGrid } from '@/components/home/feature-grid';
+import { HeroCarousel } from '@/components/home/hero-carousel';
+import { ProfileMenu } from '@/components/profile/profile-menu';
 import { ThemedText } from '@/components/themed-text';
 import { AnimatedNumber } from '@/components/ui/animated-number';
 import { Button } from '@/components/ui/button';
@@ -14,7 +16,6 @@ import { Screen } from '@/components/ui/screen';
 import { ErrorState } from '@/components/ui/states';
 import { MIN_DAILY_AMOUNT } from '@/domain/simulation';
 import { hasContributedToday, isAtRisk, milestoneProgress, nextMilestone } from '@/domain/streak';
-import { firstName } from '@/domain/validation';
 import { formatINR, pluralDays } from '@/lib/format';
 import { actions, select, useFuture } from '@/store/future-store';
 import { Palette, Radius, Spacing } from '@/theme';
@@ -48,10 +49,12 @@ export default function HomeScreen() {
     <Screen scroll>
       <View style={styles.header}>
         <Logo size={26} />
-        <ThemedText type="caption" themeColor="textTertiary">
-          {profile?.name ? firstName(profile.name) : 'Welcome'}
-        </ThemedText>
+        <ProfileMenu />
       </View>
+
+      <Animated.View entering={FadeIn.duration(360)} style={styles.carousel}>
+        <HeroCarousel />
+      </Animated.View>
 
       <Animated.View entering={FadeIn.duration(360)} style={styles.hero}>
         <ThemedText type="overline" themeColor="textSecondary">
@@ -77,8 +80,10 @@ export default function HomeScreen() {
           <Card variant={atRisk ? 'accent' : 'default'} style={styles.streakCard}>
           <View style={styles.streakTop}>
             <View style={styles.streakLeft}>
+              {/* The flame is lit only while the streak is alive. Burning over a dead
+                  streak would make it decoration; withheld, it is worth earning back. */}
               <ThemedText type="overline" themeColor="textSecondary">
-                Wealth streak
+                Wealth streak{streak.current > 0 ? ' 🔥' : ''}
               </ThemedText>
               <ThemedText type="display">{pluralDays(streak.current)}</ThemedText>
               <ThemedText type="caption" themeColor="textTertiary">
@@ -155,7 +160,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBlockStart: Spacing.four,
   },
-  hero: { marginBlockStart: Spacing.five },
+  carousel: { marginBlockStart: Spacing.four },
+  hero: { marginBlockStart: Spacing.six },
   heroMeta: {
     flexDirection: 'row',
     alignItems: 'center',

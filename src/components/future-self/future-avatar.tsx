@@ -22,7 +22,7 @@ import {
   type AvatarState,
   type ExpressionKey,
 } from '@/theme';
-import { EdgeFade } from './edge-fade';
+import { AvatarMask } from './avatar-mask';
 
 type FutureAvatarProps = {
   gender: AvatarGender;
@@ -88,31 +88,41 @@ function FutureAvatarBase({
     ],
   }));
 
+  const art = (
+    <Image
+      source={source}
+      // Explicit dimensions let the layout settle before decode, so nothing jumps.
+      style={{ width: size, height }}
+      contentFit="cover"
+      // Crossfade rather than a hard cut when the expression changes.
+      transition={180}
+      // Art is bundled, so memory caching alone is enough — no disk round-trip.
+      cachePolicy="memory"
+      accessibilityLabel={`Future You looking ${resolved}`}
+    />
+  );
+
   return (
     <View style={styles.wrap} pointerEvents="none">
       <Animated.View style={animatedStyle}>
-        {/* Painted with the colour baked into this character's own art, so the image
-            never sits on a slightly different field than its own background. */}
-        <View
-          style={[
-            { width: size, height, backgroundColor: avatarBackdrop(gender) },
-            framed ? styles.framed : styles.bare,
-          ]}>
-          <Image
-            source={source}
-            // Explicit dimensions let the layout settle before decode, so nothing jumps.
-            style={{ width: size, height }}
-            contentFit="cover"
-            // Crossfade rather than a hard cut when the expression changes.
-            transition={180}
-            // Art is bundled, so memory caching alone is enough — no disk round-trip.
-            cachePolicy="memory"
-            accessibilityLabel={`Future You looking ${resolved}`}
-          />
-          {/* Unframed avatars dissolve into the page; framed ones already have a
-              deliberate border, so softening their edges would just look blurry. */}
-          {framed ? null : <EdgeFade size={Math.round(size * 0.14)} />}
-        </View>
+        {framed ? (
+          // A frame is a deliberate portrait: the border is what makes the art's own
+          // dark backdrop read as intentional, and softening its edges inside a box
+          // would just look blurry.
+          <View
+            style={[
+              { width: size, height, backgroundColor: avatarBackdrop(gender) },
+              styles.framed,
+            ]}>
+            {art}
+          </View>
+        ) : (
+          // Unframed, the rectangle has to actually go. Masking removes it rather than
+          // painting it a colour that only matches on one surface.
+          <AvatarMask width={size} height={height}>
+            {art}
+          </AvatarMask>
+        )}
       </Animated.View>
     </View>
   );
@@ -120,7 +130,6 @@ function FutureAvatarBase({
 
 const styles = StyleSheet.create({
   wrap: { alignItems: 'center', justifyContent: 'center' },
-  bare: { overflow: 'hidden' },
   framed: {
     overflow: 'hidden',
     borderRadius: Radius.xl,

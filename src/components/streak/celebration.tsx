@@ -1,4 +1,5 @@
 import * as Haptics from 'expo-haptics';
+import { router } from 'expo-router';
 import { memo, useEffect } from 'react';
 import { StyleSheet, View, useWindowDimensions } from 'react-native';
 import Animated, {
@@ -100,11 +101,24 @@ function CelebrationBase() {
           </View>
         ) : null}
 
+        {/* Offered here because this is the one moment someone actually wants to post
+            it. Dismiss first, so the celebration is not still sitting behind the
+            share screen when they come back. */}
+        <Button
+          label="Share this"
+          onPress={() => {
+            actions.clearEvent();
+            router.push('/share-milestone');
+          }}
+          haptic="medium"
+          style={styles.cta}
+        />
         <Button
           label="Keep going"
+          variant="ghost"
           onPress={actions.clearEvent}
-          haptic="success"
-          style={styles.cta}
+          haptic="light"
+          style={styles.secondaryCta}
         />
       </Animated.View>
     </Animated.View>
@@ -184,7 +198,8 @@ const styles = StyleSheet.create({
     borderRadius: Radius.pill,
     backgroundColor: withAlpha(Palette.gold, 0.14),
   },
-  cta: { marginBlockStart: Spacing.five },
+  cta: { marginBlockStart: Spacing.five, alignSelf: 'stretch' },
+  secondaryCta: { marginBlockStart: Spacing.two, alignSelf: 'stretch' },
 });
 
 export const Celebration = memo(CelebrationBase);

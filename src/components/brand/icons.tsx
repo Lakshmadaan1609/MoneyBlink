@@ -101,6 +101,107 @@ export const StoryIcon = memo(function StoryIcon({ size = 24, color, active }: I
   );
 });
 
+/** A question mark in a ring. The universal "explain this". */
+export const HelpIcon = memo(function HelpIcon({ size = 24, color, active }: IconProps) {
+  const props = base(size, active);
+  return (
+    <Svg {...props}>
+      <Circle cx={12} cy={12} r={8.6} stroke={color} strokeWidth={props.strokeWidth} />
+      <Path
+        d="M9.6 9.4a2.5 2.5 0 1 1 3.3 2.4c-.6.2-.9.7-.9 1.3v.5"
+        stroke={color}
+        strokeWidth={props.strokeWidth}
+        strokeLinecap={props.strokeLinecap}
+        strokeLinejoin={props.strokeLinejoin}
+      />
+      <Circle cx={12} cy={16.4} r={1} fill={color} />
+    </Svg>
+  );
+});
+
+/** Sign out. A door with an arrow leaving it. */
+export const LogoutIcon = memo(function LogoutIcon({ size = 24, color, active }: IconProps) {
+  const props = base(size, active);
+  const stroke = {
+    stroke: color,
+    strokeWidth: props.strokeWidth,
+    strokeLinecap: props.strokeLinecap,
+    strokeLinejoin: props.strokeLinejoin,
+  };
+  return (
+    <Svg {...props}>
+      <Path d="M14.4 4.4H6.2a1 1 0 0 0-1 1v13.2a1 1 0 0 0 1 1h8.2" {...stroke} />
+      <Path d="M18.8 12H10" {...stroke} />
+      <Path d="m15.6 8.8 3.2 3.2-3.2 3.2" {...stroke} />
+    </Svg>
+  );
+});
+
+/** Save to device. An arrow falling into a tray. */
+export const DownloadIcon = memo(function DownloadIcon({ size = 24, color, active }: IconProps) {
+  const props = base(size, active);
+  const stroke = {
+    stroke: color,
+    strokeWidth: props.strokeWidth,
+    strokeLinecap: props.strokeLinecap,
+    strokeLinejoin: props.strokeLinejoin,
+  };
+  return (
+    <Svg {...props}>
+      <Path d="M12 3.6v11.2" {...stroke} />
+      <Path d="m7.6 10.6 4.4 4.4 4.4-4.4" {...stroke} />
+      <Path d="M4.4 18.4v1a1 1 0 0 0 1 1h13.2a1 1 0 0 0 1-1v-1" {...stroke} />
+    </Svg>
+  );
+});
+
+/** Instagram, as a monochrome glyph rather than the trademarked gradient. */
+export const InstagramIcon = memo(function InstagramIcon({ size = 24, color, active }: IconProps) {
+  const props = base(size, active);
+  return (
+    <Svg {...props}>
+      <Path
+        d="M7.4 3.6h9.2a3.8 3.8 0 0 1 3.8 3.8v9.2a3.8 3.8 0 0 1-3.8 3.8H7.4a3.8 3.8 0 0 1-3.8-3.8V7.4a3.8 3.8 0 0 1 3.8-3.8z"
+        stroke={color}
+        strokeWidth={props.strokeWidth}
+        strokeLinejoin={props.strokeLinejoin}
+      />
+      <Circle cx={12} cy={12} r={3.7} stroke={color} strokeWidth={props.strokeWidth} />
+      <Circle cx={17.1} cy={6.9} r={1.1} fill={color} />
+    </Svg>
+  );
+});
+
+/** WhatsApp — where an Indian referral actually travels. */
+export const WhatsAppIcon = memo(function WhatsAppIcon({ size = 24, color, active }: IconProps) {
+  const props = base(size, active);
+  return (
+    <Svg {...props}>
+      <Path
+        d="M3.8 20.2 5 16.5a8.2 8.2 0 1 1 3.1 3z"
+        stroke={color}
+        strokeWidth={props.strokeWidth}
+        strokeLinejoin={props.strokeLinejoin}
+      />
+      <Path
+        d="M9.2 8.6c-.5 1.2.2 2.6 1.1 3.5.9.9 2.3 1.6 3.5 1.1l.9-1.4 1.6.9c-.3 1.1-1.4 1.7-2.5 1.5-2.6-.4-5.2-3-5.6-5.6-.2-1.1.4-2.2 1.5-2.5l.9 1.6z"
+        fill={color}
+      />
+    </Svg>
+  );
+});
+
+/** Everything else — hands over to the OS share sheet. */
+export const MoreIcon = memo(function MoreIcon({ size = 24, color }: IconProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <Circle cx={5.6} cy={12} r={1.7} fill={color} />
+      <Circle cx={12} cy={12} r={1.7} fill={color} />
+      <Circle cx={18.4} cy={12} r={1.7} fill={color} />
+    </Svg>
+  );
+});
+
 /** A trophy. Reserved for the streak, which is the only thing here you can win. */
 export const TrophyIcon = memo(function TrophyIcon({ size = 24, color, active }: IconProps) {
   const props = base(size, active);

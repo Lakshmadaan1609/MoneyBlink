@@ -7,7 +7,6 @@
  * pointing these at HTTP later is a change confined to this file.
  */
 
-import { INITIAL_STATE, loadState, saveState, clearState } from '@/domain/storage';
 import {
   MAX_DAILY_AMOUNT,
   MIN_DAILY_AMOUNT,
@@ -15,17 +14,14 @@ import {
   currentDay,
   project,
   snapshot,
-} from '@/domain/simulation';
-import { applyContribution, reconcile } from '@/domain/streak';
+} from "@/domain/simulation";
 import {
-  MOCK_OTP,
-  OTP_LENGTH,
-  digitsOnly,
-  validateAge,
-  validateName,
-  validateOtp,
-  validatePhone,
-} from '@/domain/validation';
+  INITIAL_STATE,
+  clearState,
+  loadState,
+  saveState,
+} from "@/domain/storage";
+import { applyContribution, reconcile } from "@/domain/streak";
 import type {
   AppState,
   Contribution,
@@ -34,9 +30,18 @@ import type {
   MilestoneDay,
   PortfolioSnapshot,
   Purpose,
-} from '@/domain/types';
-import { request, type RequestOptions } from './client';
-import { ApiError } from './types';
+} from "@/domain/types";
+import {
+  MOCK_OTP,
+  OTP_LENGTH,
+  digitsOnly,
+  validateAge,
+  validateName,
+  validateOtp,
+  validatePhone,
+} from "@/domain/validation";
+import { request, type RequestOptions } from "./client";
+import { ApiError } from "./types";
 
 /** Ids are only ever local, so a counter plus timestamp is sufficient and stable. */
 let sequence = 0;
@@ -62,9 +67,11 @@ export type SessionPayload = {
  * Boot. Loads persisted state and brings the streak up to date, since days pass while
  * the app is closed and the user must see that the moment they open it.
  */
-export async function getSession(options?: RequestOptions): Promise<SessionPayload> {
+export async function getSession(
+  options?: RequestOptions,
+): Promise<SessionPayload> {
   return request(
-    'getSession',
+    "getSession",
     async () => {
       const state = await loadState();
       const today = currentDay(state.dayOffset);
@@ -90,7 +97,9 @@ export async function getSession(options?: RequestOptions): Promise<SessionPaylo
  * ------------------------------------------------------------------ */
 
 /** Helper: persist a patch and return the standard session payload. */
-async function commit(patch: (state: AppState) => AppState): Promise<SessionPayload> {
+async function commit(
+  patch: (state: AppState) => AppState,
+): Promise<SessionPayload> {
   const state = await loadState();
   const next = patch(state);
   await saveState(next);
@@ -132,43 +141,52 @@ export async function requestOtp(
   options?: RequestOptions,
 ): Promise<OtpChallenge> {
   return request(
-    'requestOtp',
+    "requestOtp",
     async () => {
       const check = validatePhone(phone);
-      if (!check.valid) throw new ApiError('validation', check.reason);
+      if (!check.valid) throw new ApiError("validation", check.reason);
 
       const digits = digitsOnly(phone);
       const session = await commit((state) => ({
         ...state,
         auth: { phone: digits, verified: false },
-        onboardingStep: 'otp',
+        onboardingStep: "otp",
       }));
 
-      return { phone: digits, length: OTP_LENGTH, devCode: MOCK_OTP, resendIn: 30, session };
+      return {
+        phone: digits,
+        length: OTP_LENGTH,
+        devCode: MOCK_OTP,
+        resendIn: 30,
+        session,
+      };
     },
     options,
   );
 }
 
 /** Step 2 — verify the code. Wrong codes are a validation error, never retryable. */
-export async function verifyOtp(code: string, options?: RequestOptions): Promise<SessionPayload> {
+export async function verifyOtp(
+  code: string,
+  options?: RequestOptions,
+): Promise<SessionPayload> {
   return request(
-    'verifyOtp',
+    "verifyOtp",
     async () => {
       const check = validateOtp(code);
-      if (!check.valid) throw new ApiError('validation', check.reason);
+      if (!check.valid) throw new ApiError("validation", check.reason);
 
       const state = await loadState();
       // Guard against reaching this screen without a number — a deep link, or storage
       // cleared mid-flow.
       if (!state.auth.phone) {
-        throw new ApiError('validation', 'Enter your mobile number first');
+        throw new ApiError("validation", "Enter your mobile number first");
       }
 
       return commit((s) => ({
         ...s,
         auth: { ...s.auth, verified: true },
-        onboardingStep: 'details',
+        onboardingStep: "details",
       }));
     },
     options,
@@ -191,14 +209,14 @@ export async function saveDetails(
   options?: RequestOptions,
 ): Promise<SessionPayload> {
   return request(
-    'saveDetails',
+    "saveDetails",
     async () => {
       const nameCheck = validateName(details.name);
-      if (!nameCheck.valid) throw new ApiError('validation', nameCheck.reason);
+      if (!nameCheck.valid) throw new ApiError("validation", nameCheck.reason);
       const ageCheck = validateAge(String(details.age));
-      if (!ageCheck.valid) throw new ApiError('validation', ageCheck.reason);
-      if (details.gender !== 'male' && details.gender !== 'female') {
-        throw new ApiError('validation', 'Choose your gender to continue');
+      if (!ageCheck.valid) throw new ApiError("validation", ageCheck.reason);
+      if (details.gender !== "male" && details.gender !== "female") {
+        throw new ApiError("validation", "Choose your gender to continue");
       }
 
       return commit((state) => ({
@@ -213,7 +231,7 @@ export async function saveDetails(
         },
         // Sign-up is finished, but the story still has to run before the user reaches
         // the product — `onboarded` flips only once Chapter 1 is answered.
-        onboardingStep: 'story',
+        onboardingStep: "story",
       }));
     },
     options,
@@ -231,15 +249,16 @@ export async function savePurpose(
   options?: RequestOptions,
 ): Promise<SessionPayload> {
   return request(
-    'savePurpose',
+    "savePurpose",
     async () => {
       const state = await loadState();
-      if (!state.profile) throw new ApiError('validation', 'Complete your profile first');
+      if (!state.profile)
+        throw new ApiError("validation", "Complete your profile first");
 
       return commit((s) => ({
         ...s,
         profile: { ...s.profile!, purpose },
-        onboardingStep: 'done',
+        onboardingStep: "done",
         onboarded: true,
       }));
     },
@@ -253,18 +272,47 @@ export async function setDailyAmount(
   options?: RequestOptions,
 ): Promise<SessionPayload> {
   return request(
-    'setDailyAmount',
+    "setDailyAmount",
     async () => {
       if (amount < MIN_DAILY_AMOUNT || amount > MAX_DAILY_AMOUNT) {
         throw new ApiError(
-          'validation',
+          "validation",
           `Daily amount must be between ₹${MIN_DAILY_AMOUNT} and ₹${MAX_DAILY_AMOUNT}`,
         );
       }
       const state = await loadState();
-      if (!state.profile) throw new ApiError('validation', 'Complete your profile first');
-      return commit((s) => ({ ...s, profile: { ...s.profile!, dailyAmount: amount } }));
+      if (!state.profile)
+        throw new ApiError("validation", "Complete your profile first");
+      return commit((s) => ({
+        ...s,
+        profile: { ...s.profile!, dailyAmount: amount },
+      }));
     },
+    options,
+  );
+}
+
+/* ------------------------------------------------------------------ *
+ * Referrals
+ * ------------------------------------------------------------------ */
+
+/**
+ * Records an accepted invite.
+ *
+ * Stands in for the webhook a real backend would fire when an invited number completes
+ * sign-up. Exposed to the UI as a demo control rather than hidden, because a referral
+ * ladder with no way to advance it is a screen nobody can review.
+ */
+export async function recordReferral(
+  options?: RequestOptions,
+): Promise<SessionPayload> {
+  return request(
+    "recordReferral",
+    async () =>
+      commit((state) => ({
+        ...state,
+        referralsAccepted: state.referralsAccepted + 1,
+      })),
     options,
   );
 }
@@ -291,10 +339,13 @@ export async function postContribution(
   options?: RequestOptions,
 ): Promise<ContributionPayload> {
   return request(
-    'postContribution',
+    "postContribution",
     async () => {
       if (!Number.isFinite(amount) || amount < MIN_DAILY_AMOUNT) {
-        throw new ApiError('validation', `Minimum contribution is ₹${MIN_DAILY_AMOUNT}`);
+        throw new ApiError(
+          "validation",
+          `Minimum contribution is ₹${MIN_DAILY_AMOUNT}`,
+        );
       }
 
       const state = await loadState();
@@ -302,7 +353,7 @@ export async function postContribution(
       const outcome = applyContribution(state.streak, today);
 
       const contribution: Contribution = {
-        id: makeId('c'),
+        id: makeId("c"),
         day: today,
         amount,
         at: new Date().toISOString(),
@@ -341,7 +392,7 @@ export async function getPathComparison(
   options?: RequestOptions,
 ): Promise<ReturnType<typeof comparePaths>> {
   return request(
-    'getPathComparison',
+    "getPathComparison",
     async () => {
       const state = await loadState();
       const today = currentDay(state.dayOffset);
@@ -362,10 +413,10 @@ export async function postBorrow(
   options?: RequestOptions,
 ): Promise<SessionPayload> {
   return request(
-    'postBorrow',
+    "postBorrow",
     async () => {
       if (!Number.isFinite(amount) || amount <= 0) {
-        throw new ApiError('validation', 'Enter an amount greater than ₹0');
+        throw new ApiError("validation", "Enter an amount greater than ₹0");
       }
 
       const state = await loadState();
@@ -373,14 +424,18 @@ export async function postBorrow(
       const portfolio = snapshot(state.contributions, state.loans, today);
 
       if (amount > portfolio.availableToBorrow) {
-        throw new ApiError('limit_exceeded', 'That is above your borrowing limit', {
-          requested: amount,
-          available: portfolio.availableToBorrow,
-        });
+        throw new ApiError(
+          "limit_exceeded",
+          "That is above your borrowing limit",
+          {
+            requested: amount,
+            available: portfolio.availableToBorrow,
+          },
+        );
       }
 
       const loan: Loan = {
-        id: makeId('l'),
+        id: makeId("l"),
         principal: amount,
         outstanding: amount,
         day: today,
@@ -417,7 +472,7 @@ export async function getProjection(
   options?: RequestOptions,
 ): Promise<ProjectionPayload> {
   return request(
-    'getProjection',
+    "getProjection",
     async () => {
       const state = await loadState();
       const today = currentDay(state.dayOffset);
@@ -444,10 +499,13 @@ export async function setDayOffset(
   options?: RequestOptions,
 ): Promise<SessionPayload> {
   return request(
-    'setDayOffset',
+    "setDayOffset",
     async () => {
       const state = await loadState();
-      const next: AppState = { ...state, dayOffset: Math.max(0, Math.round(offset)) };
+      const next: AppState = {
+        ...state,
+        dayOffset: Math.max(0, Math.round(offset)),
+      };
       await saveState(next);
 
       const today = currentDay(next.dayOffset);
@@ -468,9 +526,11 @@ export async function setDayOffset(
 }
 
 /** Wipes everything — used to demonstrate the first-run and empty states. */
-export async function resetAll(options?: RequestOptions): Promise<SessionPayload> {
+export async function resetAll(
+  options?: RequestOptions,
+): Promise<SessionPayload> {
   return request(
-    'resetAll',
+    "resetAll",
     async () => {
       await clearState();
       const today = currentDay(0);

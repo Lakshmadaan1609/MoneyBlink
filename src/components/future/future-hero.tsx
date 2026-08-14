@@ -10,7 +10,6 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 
-import { EdgeFade } from '@/components/future-self/edge-fade';
 import { FutureAvatar } from '@/components/future-self/future-avatar';
 import { ThemedText } from '@/components/themed-text';
 import { bindingConstraint, nextStage, stageFor, stageProgress } from '@/domain/evolution';
@@ -19,7 +18,6 @@ import {
   Palette,
   Radius,
   Spacing,
-  avatarBackdrop,
   withAlpha,
   type AvatarGender,
   type AvatarState,
@@ -125,10 +123,10 @@ function FutureHeroBase({
             </Animated.View>
           </View>
 
-          <View style={[styles.art, { backgroundColor: avatarBackdrop(gender) }]}>
+          {/* No backdrop and no edge fade: `FutureAvatar` masks its own rectangle away,
+              so there is nothing left to hide against the card's gradient. */}
+          <View style={styles.art}>
             <FutureAvatar gender={gender} state={avatarState} size={132} framed={false} />
-            {/* Dissolves the art's opaque rectangle into the card's own colour. */}
-            <EdgeFade color={Palette.bgCard} size={26} edges={['top', 'left']} />
           </View>
         </View>
 

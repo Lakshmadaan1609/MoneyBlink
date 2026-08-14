@@ -212,6 +212,18 @@ export const actions = {
     }
   },
 
+  /** Demo control: stands in for the backend webhook when an invite is accepted. */
+  async recordReferral(): Promise<boolean> {
+    set({ mutating: true, error: null });
+    try {
+      applySession(await api.recordReferral());
+      return true;
+    } catch (error) {
+      fail(error);
+      return false;
+    }
+  },
+
   async timeTravel(offset: number): Promise<void> {
     set({ mutating: true, error: null });
     try {
@@ -274,6 +286,7 @@ export const select = {
   dayOffset: (s: StoreState) => s.state.dayOffset,
   auth: (s: StoreState) => s.state.auth,
   onboardingStep: (s: StoreState) => s.state.onboardingStep,
+  referralsAccepted: (s: StoreState) => s.state.referralsAccepted,
 } as const;
 
 /** Escape hatch for the rare consumer that genuinely needs everything. */

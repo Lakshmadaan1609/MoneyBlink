@@ -107,10 +107,12 @@ export default function StreakScreen() {
 
       <View style={styles.header}>
         <BackButton fallback="/(app)/home" />
-        <View style={styles.titleWrap}>
-          <ThemedText type="title">Wealth Streak</ThemedText>
-          <ThemedText type="title">🔥</ThemedText>
-        </View>
+        {/* One text node, not two. Split across two, "Wealth Streak" and the emoji were
+            separate flex children competing for a squeezed row, so the title wrapped and
+            only "Wealth" survived on the visible line. */}
+        <ThemedText type="title" numberOfLines={1} style={styles.title}>
+          Wealth Streak 🔥
+        </ThemedText>
         <Pressable
           accessibilityRole="button"
           accessibilityLabel="How the streak works"
@@ -306,7 +308,9 @@ const styles = StyleSheet.create({
     gap: Spacing.three,
     marginBlockStart: Spacing.four,
   },
-  titleWrap: { flexDirection: 'row', alignItems: 'center', gap: Spacing.one },
+  // Takes the space between the two controls and centres in it, so the title stays put
+  // whether or not the info button is showing.
+  title: { flex: 1, textAlign: 'center' },
   // Matches the back button's footprint so the title stays optically centred.
   info: {
     width: Layout.minTouchTarget,

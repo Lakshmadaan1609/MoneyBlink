@@ -102,6 +102,11 @@ export type AppState = {
    * a relaunch.
    */
   dayOffset: number;
+  /**
+   * Invites that have been accepted. A count rather than a list because the product
+   * never needs to name who joined — only how many, for the reward ladder.
+   */
+  referralsAccepted: number;
   /** True once onboarding has been completed. */
   onboarded: boolean;
 };

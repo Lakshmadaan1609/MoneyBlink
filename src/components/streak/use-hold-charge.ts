@@ -82,12 +82,19 @@ export function useHoldCharge(onComplete: () => void, holdMs = DEFAULT_HOLD_MS) 
     charge.value = withTiming(0, { duration: 260, easing: Easing.out(Easing.quad) });
   }
 
-  /** Snaps back to empty with no animation — for after a commit resolves, or fails. */
+  /**
+   * Drains after a commit resolves, or fails.
+   *
+   * Eased rather than snapped, and timed to match the ring's own fill. On success the
+   * settled progress is rising to meet the charge as the charge falls away, so the arc
+   * holds its position; snapping to zero made it lurch backwards a frame before the new
+   * value caught up, which read as the ring losing the day it had just earned.
+   */
   function reset() {
     stopTicking();
     setHolding(false);
     cancelAnimation(charge);
-    charge.value = 0;
+    charge.value = withTiming(0, { duration: 600, easing: Easing.out(Easing.cubic) });
   }
 
   return { charge, holding, start, release, reset };

@@ -6,6 +6,8 @@ import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-na
 import {
   BorrowIcon,
   FutureIcon,
+  GiftIcon,
+  InvestIcon,
   StoryIcon,
   StreakIcon,
   type IconProps,
@@ -13,7 +15,7 @@ import {
 import { ThemedText } from '@/components/themed-text';
 import { BORROW_RATE, MIN_DAILY_AMOUNT } from '@/domain/simulation';
 import { formatINR, formatPercent } from '@/lib/format';
-import { Layout, Palette, Radius, Spacing, withAlpha } from '@/theme';
+import { Accent, Layout, Palette, Radius, Spacing, withAlpha } from '@/theme';
 
 type Feature = {
   key: string;
@@ -42,6 +44,14 @@ const FEATURES: Feature[] = [
     href: '/streak',
   },
   {
+    key: 'time-machine',
+    icon: InvestIcon,
+    color: Accent.safety,
+    title: 'Time Machine',
+    copy: 'Drag through the years and watch one decision move all of them.',
+    href: '/(app)/invest/time-machine',
+  },
+  {
     key: 'borrow',
     icon: BorrowIcon,
     color: Palette.gold,
@@ -56,6 +66,14 @@ const FEATURES: Feature[] = [
     title: 'Future You',
     copy: 'A character who reacts to every decision you make.',
     href: '/(app)/future',
+  },
+  {
+    key: 'rewards',
+    icon: GiftIcon,
+    color: Accent.streak,
+    title: 'Refer & earn',
+    copy: 'Share your streak, not a code. You both get paid.',
+    href: '/(app)/rewards',
   },
   {
     key: 'story',

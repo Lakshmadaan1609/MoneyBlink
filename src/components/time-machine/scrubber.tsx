@@ -18,11 +18,11 @@ const KNOB = 18;
 /**
  * Owns the scrub position.
  *
- * The hook holds the shared value, not the component, for the same reason `useHoldCharge`
- * does: a shared value written inside the component it was passed *to* is a prop
- * mutation, which the React Compiler rejects. Here it is a local, and the hero counter
- * and the chart marker both receive it read-only — which is what lets all three move
- * together on the UI thread with no React render in the loop.
+ * The hook holds the shared value rather than the component, for the same reason
+ * `useHoldCharge` does: a shared value written inside the component it was passed *to* is
+ * a prop mutation, which the React Compiler rejects outright. Here it is a local, and the
+ * hero counter and chart marker receive it read-only — which is what lets all three move
+ * together on the UI thread with no React render anywhere in the loop.
  */
 export function useScrubber({
   startYear,
@@ -37,7 +37,9 @@ export function useScrubber({
   onCommit: (year: number) => void;
 }) {
   const span = Math.max(1, endYear - startYear);
-  const progress = useSharedValue((initialYear - startYear) / span);
+  const progress = useSharedValue(
+    Math.min(1, Math.max(0, (initialYear - startYear) / span)),
+  );
   const width = useSharedValue(0);
   const start = useSharedValue(0);
   const active = useSharedValue(0);
@@ -57,18 +59,16 @@ export function useScrubber({
       progress.value = Math.min(1, Math.max(0, start.value + event.translationX / w));
     })
     // `onFinalize`, not `onEnd`: a gesture cancelled by a parent scroll never reaches
-    // `onEnd`, and the year would silently disagree with the knob.
+    // `onEnd`, and the committed year would silently disagree with the knob.
     .onFinalize(() => {
       active.value = withTiming(0, { duration: 160 });
       runOnJS(commit)(progress.value);
     });
 
-  /** Jump to a year — used by the tick labels, which are real targets, not decoration. */
-  function seek(year: number, animated = true) {
+  /** Jump to a year. The tick labels are real targets, not decoration. */
+  function seek(year: number) {
     const next = Math.min(1, Math.max(0, (year - startYear) / span));
-    progress.value = animated
-      ? withTiming(next, { duration: 260, easing: Easing.out(Easing.cubic) })
-      : next;
+    progress.value = withTiming(next, { duration: 260, easing: Easing.out(Easing.cubic) });
     onCommit(startYear + Math.round(next * span));
   }
 
@@ -81,13 +81,13 @@ export function useScrubber({
 
 type TimeScrubberProps = {
   progress: SharedValue<number>;
-  /** Rises to 1 while dragging, so the knob can grow under the thumb. */
+  /** Rises to 1 while dragging, so the knob grows under the thumb. */
   active: SharedValue<number>;
   gesture: GestureType;
   onMeasure: (width: number) => void;
   startYear: number;
   endYear: number;
-  /** Years given their own label. Positioned by their true fraction of the span. */
+  /** Years given their own label, positioned by their true fraction of the span. */
   ticks: readonly number[];
   selectedYear: number;
   onSeek: (year: number) => void;
@@ -96,9 +96,9 @@ type TimeScrubberProps = {
 /**
  * The year scrubber.
  *
- * The track is drawn from the same shared value the hero and chart read, so nothing can
- * fall out of step. Tick labels are pressable rather than painted on — a user who wants
- * 2036 should not have to land a drag on it.
+ * Drawn from the same shared value the hero and chart read, so nothing can fall out of
+ * step. The 3px track is the affordance; the touch target around it is a full 44pt,
+ * because a hairline is something to look at, not something to hit.
  */
 function TimeScrubberBase({
   progress,
@@ -118,10 +118,7 @@ function TimeScrubberBase({
 
   const knobStyle = useAnimatedStyle(() => ({
     left: `${progress.value * 100}%`,
-    transform: [
-      { translateX: -KNOB / 2 },
-      { scale: reduced ? 1 : 1 + active.value * 0.15 },
-    ],
+    transform: [{ translateX: -KNOB / 2 }, { scale: reduced ? 1 : 1 + active.value * 0.15 }],
   }));
 
   return (
@@ -132,8 +129,8 @@ function TimeScrubberBase({
           accessibilityRole="adjustable"
           accessibilityLabel="Year"
           accessibilityValue={{ min: startYear, max: endYear, now: selectedYear }}
-          // Screen readers cannot drag, so the increment actions are the whole control
-          // for anyone using one.
+          // A screen reader cannot drag, so these actions are the entire control for
+          // anyone using one.
           accessibilityActions={[{ name: 'increment' }, { name: 'decrement' }]}
           onAccessibilityAction={(event) => {
             const delta = event.nativeEvent.actionName === 'increment' ? 1 : -1;
@@ -147,7 +144,7 @@ function TimeScrubberBase({
         </View>
       </GestureDetector>
 
-      <View style={styles.ticks} pointerEvents="box-none">
+      <View style={styles.ticks}>
         {ticks.map((year) => {
           const activeTick = year === selectedYear;
           return (
@@ -157,18 +154,9 @@ function TimeScrubberBase({
               accessibilityLabel={`Jump to ${year}`}
               hitSlop={10}
               onPress={() => onSeek(year)}
-              style={[
-                styles.tick,
-                // Positioned by the year's true share of the span, so a label always sits
-                // under the point it names.
-                { left: `${((year - startYear) / span) * 100}%` },
-              ]}>
+              style={[styles.tick, { left: `${((year - startYear) / span) * 100}%` }]}>
               <Text
-                style={[
-                  activeTick ? type.pillActive : type.pill,
-                  textReset,
-                  styles.tickLabel,
-                ]}>
+                style={[activeTick ? type.pillActive : type.pill, textReset, styles.tickLabel]}>
                 {year}
               </Text>
             </Pressable>
@@ -180,7 +168,6 @@ function TimeScrubberBase({
 }
 
 const styles = StyleSheet.create({
-  // A 3px track with a 44pt target around it: the line is the affordance, not the hitbox.
   hit: { height: 44, justifyContent: 'center' },
   track: { height: 3, borderRadius: radius.pill, backgroundColor: color.line, overflow: 'hidden' },
   fill: { height: 3, borderRadius: radius.pill, backgroundColor: color.green },

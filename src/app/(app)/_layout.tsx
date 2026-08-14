@@ -6,9 +6,10 @@ import { Palette } from '@/theme';
 /**
  * The product, once onboarding is done.
  *
- * Four tabs that mirror BlinkMoney's own loop — Save → Grow → Borrow → Still Grow.
+ * Five tabs that mirror BlinkMoney's own loop — Save → Grow → Borrow → Still Grow.
  * Today is where the daily decision lives, Invest is the decision itself, Borrow is the
- * pressure valve that keeps compounding intact, and Future is the reason for all three.
+ * pressure valve that keeps compounding intact, Future is the reason for all three, and
+ * Rewards is what happens when someone is proud enough of it to say so.
  *
  * Declared as explicit children rather than left to file order, because the order of
  * these four is the story the navigation tells.
@@ -25,6 +26,7 @@ export default function AppLayout() {
       <Tabs.Screen name="invest" options={{ title: 'Invest' }} />
       <Tabs.Screen name="borrow" options={{ title: 'Borrow' }} />
       <Tabs.Screen name="future" options={{ title: 'Future' }} />
+      <Tabs.Screen name="rewards" options={{ title: 'Rewards' }} />
     </Tabs>
   );
 }

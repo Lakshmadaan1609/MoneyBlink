@@ -15,6 +15,11 @@ export type Stage = {
   key: StageKey;
   /** Shown beside the projected age, e.g. "34 yrs old · Financially Free". */
   title: string;
+  /**
+   * One-word form for the Wealth DNA badge, where a full stage title would not fit and
+   * a chip reading "Building Momentum" stops being a chip.
+   */
+  dna: string;
   /** One line on what this stage means, for the stage detail. */
   tagline: string;
   minStreak: number;
@@ -25,6 +30,7 @@ export const STAGES: readonly Stage[] = [
   {
     key: 'starting',
     title: 'Just Starting',
+    dna: 'Seedling',
     tagline: 'The first rupee is the hardest. You have already put it in.',
     minStreak: 0,
     minInvested: 0,
@@ -32,6 +38,7 @@ export const STAGES: readonly Stage[] = [
   {
     key: 'building',
     title: 'Building Momentum',
+    dna: 'Builder',
     tagline: 'A week unbroken. This is where most people stop — you did not.',
     minStreak: 7,
     minInvested: 500,
@@ -39,6 +46,7 @@ export const STAGES: readonly Stage[] = [
   {
     key: 'compounding',
     title: 'Compounding',
+    dna: 'Compounder',
     tagline: 'A month in. Growth has started doing work you did not have to do.',
     minStreak: 30,
     minInvested: 5_000,
@@ -46,6 +54,7 @@ export const STAGES: readonly Stage[] = [
   {
     key: 'free',
     title: 'Financially Free',
+    dna: 'Free',
     tagline: 'A hundred days and a real balance. You can borrow instead of break.',
     minStreak: 100,
     minInvested: 50_000,
@@ -53,6 +62,7 @@ export const STAGES: readonly Stage[] = [
   {
     key: 'founder',
     title: 'Founder’s Circle',
+    dna: 'Founder',
     tagline: 'A full year without missing. Almost nobody gets here.',
     minStreak: 365,
     minInvested: 200_000,

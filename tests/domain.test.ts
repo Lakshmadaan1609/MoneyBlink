@@ -41,6 +41,18 @@ import {
 } from '../src/domain/evolution.ts';
 import { buildFeed, cohortPercentile, growthToday } from '../src/domain/feed.ts';
 import {
+  nextTier,
+  referralCode,
+  shareMessage,
+  tierProgress,
+} from '../src/domain/referral.ts';
+import {
+  HASHTAG,
+  cardFilename,
+  milestoneCaption,
+  milestoneCard,
+} from '../src/domain/share.ts';
+import {
   MOCK_OTP,
   digitsOnly,
   firstName,
@@ -342,6 +354,73 @@ check('a year puts you at the top', cohortPercentile(365), 1);
 ok('percentile only improves with days', [0, 1, 3, 7, 14, 30, 60, 100, 365].every((d, i, all) =>
   i === 0 || cohortPercentile(d) <= cohortPercentile(all[i - 1]!),
 ));
+
+/* ---------------- referrals ---------------- */
+
+// The one property that matters: a code must never change for the same number, or a
+// friend types one that was already given away to somebody else.
+check('a code is stable', referralCode('9876543210'), referralCode('9876543210'));
+check('a code is six characters', referralCode('9876543210').length, 6);
+ok('a code has no ambiguous glyphs',
+  !/[O0I1]/.test(referralCode('9876543210')), referralCode('9876543210'));
+ok('formatting does not change the code',
+  referralCode('+91 98765 43210') === referralCode('9876543210'));
+
+// Most of a user base shares a prefix, so adjacent numbers must not collide.
+const codes = new Set(
+  Array.from({ length: 500 }, (_, i) => referralCode(String(9000000000 + i))),
+);
+ok('adjacent numbers rarely collide', codes.size >= 495, `${codes.size}/500 distinct`);
+ok('a missing number still yields a code', referralCode(null).length === 6);
+
+check('a new user is working toward one friend', nextTier(0)?.count, 1);
+check('one accepted moves to the next rung', nextTier(1)?.count, 3);
+check('nothing left after five', nextTier(5), null);
+check('progress is 1 once the ladder is done', tierProgress(5), 1);
+check('progress is 0 at a rung boundary', tierProgress(1), 0);
+ok('progress stays within 0-1', [0, 1, 2, 3, 4, 5, 99].every((n) => {
+  const p = tierProgress(n);
+  return p >= 0 && p <= 1;
+}));
+
+// The share message leads with the streak, because that is the part that persuades.
+const shared = shareMessage({ name: 'Laksh', streakDays: 47, code: 'ABC123' });
+ok('the message leads with the streak', shared.startsWith("I've invested every day for 47 days"));
+ok('and still carries the code', shared.includes('ABC123'));
+ok('and is signed', shared.includes('Laksh'));
+
+const coldShare = shareMessage({ streakDays: 0, code: 'ABC123' });
+ok('a zero streak is not claimed as one', !coldShare.includes('0 days'));
+ok('but the invite still works', coldShare.includes('ABC123'));
+
+/* ---------------- milestone card ---------------- */
+
+// The card is the whole artefact: a screenshot forwarded without its caption still has
+// to state the claim, name the product, and explain the mechanism.
+const card47 = milestoneCard(47);
+check('the card names the streak', card47.value, '47 days');
+ok('and names the product', card47.trail.includes('BlinkMoney'));
+ok('and explains the mechanism', card47.body.includes('Liquid Wealth Account'));
+ok('and quotes both rates', card47.body.includes('15%') && card47.body.includes('9.99%'));
+
+// A "0 day streak" card is a scoreboard saying nothing. Day one is a different message.
+const card0 = milestoneCard(0);
+ok('a zero streak gets its own card', card0.lead.includes('just started'));
+ok('and never claims zero days', !`${card0.lead}${card0.value}${card0.trail}`.includes('0 days'));
+ok('but still explains the product', card0.body === card47.body);
+
+const caption = milestoneCaption({ streakDays: 47, phone: '9876543210', name: 'Laksh' });
+ok('the caption leads with the streak', caption.startsWith('47 days of investing'));
+ok('and carries the invite code', caption.includes(referralCode('9876543210')));
+ok('and the hashtag', caption.includes(HASHTAG));
+ok('and is signed', caption.includes('Laksh'));
+
+const coldCaption = milestoneCaption({ streakDays: 0, phone: null });
+ok('a cold caption still invites', coldCaption.includes(referralCode(null)));
+ok('and does not boast about zero', !coldCaption.includes('0 days'));
+
+check('a filename is stable per streak', cardFilename(47), 'blinkmoney-streak-47.png');
+check('and survives a negative', cardFilename(-3), 'blinkmoney-streak-0.png');
 
 /* ---------------- summary ---------------- */
 

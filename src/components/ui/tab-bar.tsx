@@ -8,6 +8,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   BorrowIcon,
   FutureIcon,
+  GiftIcon,
   HomeIcon,
   InvestIcon,
   type IconProps,
@@ -21,6 +22,7 @@ const ICONS: Record<string, ComponentType<IconProps>> = {
   invest: InvestIcon,
   borrow: BorrowIcon,
   future: FutureIcon,
+  rewards: GiftIcon,
 };
 
 /** Gap between the sliding pill and the edges of its quarter of the bar. */

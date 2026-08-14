@@ -14,6 +14,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useCallback, useSyncExternalStore } from 'react';
 
+import type { Modifiers } from '@/lib/projection';
 import {
   FIXTURE,
   OfflineError,
@@ -61,8 +62,6 @@ export type TimeMachineState = {
 /* ------------------------------------------------------------------ *
  * Levers
  * ------------------------------------------------------------------ */
-
-import type { Modifiers } from '@/lib/projection';
 
 export const LEVERS: {
   key: LeverKey;
