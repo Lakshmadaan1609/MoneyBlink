@@ -1,4 +1,4 @@
-# BlinkMoney FutureOS
+# BlinkMoney Future
 
 ## A behavioral wealth engine for daily investing consistency
 
