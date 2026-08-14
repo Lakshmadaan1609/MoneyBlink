@@ -46,7 +46,7 @@ This is a response to the **BlinkMoney Frontend Engineering Assignment**: build 
 new feature that could meaningfully improve engagement, retention and investing consistency —
 not a re-skin of portfolio tracking.
 
-The result is **FutureOS**: a connected behavioural layer on top of BlinkMoney's existing
+The result is **Future**: a connected behavioural layer on top of BlinkMoney's existing
 model (*Invest → Grow → Borrow → Still Grow*) that gives compounding a face, a streak and a
 reason to open the app tomorrow.
 
@@ -92,7 +92,7 @@ channel, so hiding it would make the flow untestable.
 Most investment apps are opened occasionally. Compounding is invisible day to day, so SIPs
 get paused, consistency breaks, and the long-term goal stays abstract.
 
-BlinkMoney helps users build wealth. FutureOS is designed to help users **fall in love with
+BlinkMoney helps users build wealth. Future is designed to help users **fall in love with
 building wealth** — because people protect *identity* harder than they protect money.
 
 The product is built around one question:
@@ -882,7 +882,7 @@ a design.
 - **Palette:** dark-first, with a brand green, gold accents, and semantic tokens
   (`bgPage`/`bgCard`/`bgElevated`/`border`/`textPrimary`/`textSecondary`/`textTertiary`).
   `withAlpha()` derives tints so no component ever invents a colour.
-- **Two token sets, on purpose.** `@/theme` serves the FutureOS screens; `@/theme/tokens` is a
+- **Two token sets, on purpose.** `@/theme` serves the main app screens; `@/theme/tokens` is a
   tighter set matching the Time Machine's prototype spec to the pixel. They coexist rather than
   being force-merged, so neither surface drifts from its reference.
 - **Shared primitives:** `Screen` (safe areas, max content width, pull-to-refresh), `Card`,
@@ -1096,4 +1096,5 @@ a decision, not necessarily code.
 ---
 
 **Invest. Grow. Borrow. Keep Growing.**
-FutureOS doesn't replace that loop — it gives the user a reason to come back to it tomorrow.
+BlinkMoney Future doesn't replace that loop — it gives the user a reason to come back to it
+tomorrow.
