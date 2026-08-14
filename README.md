@@ -1,4 +1,4 @@
-# BlinkMoney FutureOS
+# BlinkMoney Future
 
 **A behavioral wealth engine for daily investing consistency.**
 React Native (Expo) · TypeScript · Expo Router · Reanimated 4 · React Compiler
