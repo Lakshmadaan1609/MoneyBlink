@@ -7,13 +7,13 @@ React Native (Expo) · TypeScript · Expo Router · Reanimated 4 · React Compil
 
 ## Screenshots
 
-| Story Onboarding | Home Screen | Share Milestone |
-|---|---|---|
-| ![Chapter 1 - The Meeting](./screenshots/01-story-meeting.png) | ![Home Screen](./screenshots/02-home-screen.png) | ![Share Milestone](./screenshots/03-share-milestone.png) |
+| Wealth Streak                                        | Rewards                                  | Share Milestone                                          |
+| ---------------------------------------------------- | ---------------------------------------- | -------------------------------------------------------- |
+| ![Wealth Streak](./screenshots/04-wealth-streak.png) | ![Rewards](./screenshots/05-rewards.png) | ![Share Milestone](./screenshots/03-share-milestone.png) |
 
-| Wealth Streak | Rewards | Wealth Time Machine |
-|---|---|---|
-| ![Wealth Streak](./screenshots/04-wealth-streak.png) | ![Rewards](./screenshots/05-rewards.png) | ![Wealth Time Machine](./screenshots/06-time-machine.png) |
+| Wealth Time Machine                                       | Future Feed                                      |
+| ----------------------------------------------------------- | -------------------------------------------------- |
+| ![Wealth Time Machine](./screenshots/06-time-machine.png) | ![Future Feed](./screenshots/07-future-feed.png) |
 
 ---
 
