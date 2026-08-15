@@ -5,6 +5,18 @@ React Native (Expo) · TypeScript · Expo Router · Reanimated 4 · React Compil
 
 ---
 
+## Screenshots
+
+| Story Onboarding | Home Screen | Share Milestone |
+|---|---|---|
+| ![Chapter 1 - The Meeting](./screenshots/01-story-meeting.png) | ![Home Screen](./screenshots/02-home-screen.png) | ![Share Milestone](./screenshots/03-share-milestone.png) |
+
+| Wealth Streak | Rewards | Wealth Time Machine |
+|---|---|---|
+| ![Wealth Streak](./screenshots/04-wealth-streak.png) | ![Rewards](./screenshots/05-rewards.png) | ![Wealth Time Machine](./screenshots/06-time-machine.png) |
+
+---
+
 ## Table of contents
 
 1. [What this is](#1-what-this-is)
@@ -46,8 +58,8 @@ This is a response to the **BlinkMoney Frontend Engineering Assignment**: build 
 new feature that could meaningfully improve engagement, retention and investing consistency —
 not a re-skin of portfolio tracking.
 
-The result is **Future**: a connected behavioural layer on top of BlinkMoney's existing
-model (*Invest → Grow → Borrow → Still Grow*) that gives compounding a face, a streak and a
+The result is **FutureOS**: a connected behavioural layer on top of BlinkMoney's existing
+model (_Invest → Grow → Borrow → Still Grow_) that gives compounding a face, a streak and a
 reason to open the app tomorrow.
 
 Everything in this repository is a working app. There is no backend, but there is a complete
@@ -92,8 +104,8 @@ channel, so hiding it would make the flow untestable.
 Most investment apps are opened occasionally. Compounding is invisible day to day, so SIPs
 get paused, consistency breaks, and the long-term goal stays abstract.
 
-BlinkMoney helps users build wealth. Future is designed to help users **fall in love with
-building wealth** — because people protect *identity* harder than they protect money.
+BlinkMoney helps users build wealth. FutureOS is designed to help users **fall in love with
+building wealth** — because people protect _identity_ harder than they protect money.
 
 The product is built around one question:
 
@@ -109,33 +121,33 @@ Future Feed  →  one decision  →  Wealth Streak grows  →  Future You evolve
 
 Five principles hold it together:
 
-| Principle | What it means in the build |
-|---|---|
-| **Identity** | The avatar is the user's future self, not a mascot. It changes standing, not just expression. |
-| **Progress** | Every screen states a number that moved because of something the user did. |
-| **Protection** | Shields cover a missed day; borrowing covers an emergency. Neither erases progress. |
-| **Emotion** | Milestones get a modal celebration. A SIP commitment deliberately gets none. |
-| **Simplicity** | One meaningful action per day, one button on the home screen. |
+| Principle      | What it means in the build                                                                    |
+| -------------- | --------------------------------------------------------------------------------------------- |
+| **Identity**   | The avatar is the user's future self, not a mascot. It changes standing, not just expression. |
+| **Progress**   | Every screen states a number that moved because of something the user did.                    |
+| **Protection** | Shields cover a missed day; borrowing covers an emergency. Neither erases progress.           |
+| **Emotion**    | Milestones get a modal celebration. A SIP commitment deliberately gets none.                  |
+| **Simplicity** | One meaningful action per day, one button on the home screen.                                 |
 
 ---
 
 ## 4. What shipped
 
-| # | Feature | Where | Status |
-|---|---|---|---|
-| 1 | Story-based onboarding | [meeting.tsx](src/app/(story)/meeting.tsx) | **Shipped** |
-| 2 | Future You avatar + evolution stages | [future-avatar.tsx](src/components/future-self/future-avatar.tsx), [evolution.ts](src/domain/evolution.ts) | **Shipped** |
-| 3 | Wealth Streak (shields, milestones, rewards) | [streak.tsx](src/app/streak.tsx), [streak.ts](src/domain/streak.ts) | **Shipped** |
-| 4 | Borrow Without Break | [borrow.tsx](src/app/(app)/borrow.tsx) | **Shipped** |
-| 5 | Future Feed | [future.tsx](src/app/(app)/future.tsx), [feed.ts](src/domain/feed.ts) | **Shipped** |
-| 6 | **Wealth Time Machine** | [time-machine.tsx](src/app/(app)/invest/time-machine.tsx), [projection.ts](src/lib/projection.ts) | **Shipped** |
-| 7 | Referrals + reward ladder | [rewards.tsx](src/app/(app)/rewards.tsx), [referral.ts](src/domain/referral.ts) | **Shipped** |
-| 8 | Share Milestone (image export) | [share-milestone.tsx](src/app/share-milestone.tsx), [share.ts](src/domain/share.ts) | **Shipped** |
-| 9 | Profile menu, My Profile, FAQ | [profile-menu.tsx](src/components/profile/profile-menu.tsx), [profile.tsx](src/app/profile.tsx), [faq.tsx](src/app/faq.tsx) | **Shipped** |
-| 10 | Home hero carousel + feature grid | [hero-carousel.tsx](src/components/home/hero-carousel.tsx), [feature-grid.tsx](src/components/home/feature-grid.tsx) | **Shipped** |
+| #   | Feature                                      | Where                                                                                                                       | Status      |
+| --- | -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| 1   | Story-based onboarding                       | [meeting.tsx](<src/app/(story)/meeting.tsx>)                                                                                | **Shipped** |
+| 2   | Future You avatar + evolution stages         | [future-avatar.tsx](src/components/future-self/future-avatar.tsx), [evolution.ts](src/domain/evolution.ts)                  | **Shipped** |
+| 3   | Wealth Streak (shields, milestones, rewards) | [streak.tsx](src/app/streak.tsx), [streak.ts](src/domain/streak.ts)                                                         | **Shipped** |
+| 4   | Borrow Without Break                         | [borrow.tsx](<src/app/(app)/borrow.tsx>)                                                                                    | **Shipped** |
+| 5   | Future Feed                                  | [future.tsx](<src/app/(app)/future.tsx>), [feed.ts](src/domain/feed.ts)                                                     | **Shipped** |
+| 6   | **Wealth Time Machine**                      | [time-machine.tsx](<src/app/(app)/invest/time-machine.tsx>), [projection.ts](src/lib/projection.ts)                         | **Shipped** |
+| 7   | Referrals + reward ladder                    | [rewards.tsx](<src/app/(app)/rewards.tsx>), [referral.ts](src/domain/referral.ts)                                           | **Shipped** |
+| 8   | Share Milestone (image export)               | [share-milestone.tsx](src/app/share-milestone.tsx), [share.ts](src/domain/share.ts)                                         | **Shipped** |
+| 9   | Profile menu, My Profile, FAQ                | [profile-menu.tsx](src/components/profile/profile-menu.tsx), [profile.tsx](src/app/profile.tsx), [faq.tsx](src/app/faq.tsx) | **Shipped** |
+| 10  | Home hero carousel + feature grid            | [hero-carousel.tsx](src/components/home/hero-carousel.tsx), [feature-grid.tsx](src/components/home/feature-grid.tsx)        | **Shipped** |
 
 The original plan named "One Decision" as a deferred fifth feature. It shipped after all —
-absorbed into the Time Machine's commit sheet, which is literally titled *One decision*.
+absorbed into the Time Machine's commit sheet, which is literally titled _One decision_.
 
 ---
 
@@ -143,7 +155,7 @@ absorbed into the Time Machine's commit sheet, which is literally titled *One de
 
 ### 5.1 Boot gate and resumable sign-up
 
-**Files:** [index.tsx](src/app/index.tsx) · [_layout.tsx](src/app/_layout.tsx) · [phone.tsx](src/app/(onboarding)/phone.tsx) · [otp.tsx](src/app/(onboarding)/otp.tsx) · [details.tsx](src/app/(onboarding)/details.tsx) · [validation.ts](src/domain/validation.ts)
+**Files:** [index.tsx](src/app/index.tsx) · [\_layout.tsx](src/app/_layout.tsx) · [phone.tsx](<src/app/(onboarding)/phone.tsx>) · [otp.tsx](<src/app/(onboarding)/otp.tsx>) · [details.tsx](<src/app/(onboarding)/details.tsx>) · [validation.ts](src/domain/validation.ts)
 
 The app's first screen is a **boot gate**, not a login screen. It shows the animated brand
 mark (a spring-scaled bolt with a pulsing glow) while state is read from disk, then redirects
@@ -154,18 +166,18 @@ the app halfway through sign-up resumes exactly where it stopped. Losing a verif
 number because the app was backgrounded is the fastest way to lose a user before they see the
 product.
 
-**Step 1 — mobile number.** Input is capped at ten digits *at the source*, so an eleventh
+**Step 1 — mobile number.** Input is capped at ten digits _at the source_, so an eleventh
 digit cannot be typed, and formatted as `98765 43210` while typing. The full rule set still
 runs on submit. Validation is deliberately specific rather than generic:
 
-| Input | Message |
-|---|---|
-| empty | "Enter your mobile number" |
-| < 10 digits | "Enter all 10 digits" |
+| Input             | Message                                         |
+| ----------------- | ----------------------------------------------- |
+| empty             | "Enter your mobile number"                      |
+| < 10 digits       | "Enter all 10 digits"                           |
 | doesn't start 6–9 | "Indian mobile numbers start with 6, 7, 8 or 9" |
-| `9999999999` | "That does not look like a real number" |
+| `9999999999`      | "That does not look like a real number"         |
 
-Errors stay hidden until the field is *touched* — and `autoFocus` firing a blur on an empty
+Errors stay hidden until the field is _touched_ — and `autoFocus` firing a blur on an empty
 field is explicitly guarded against, because scolding someone for a number they haven't typed
 yet is hostile.
 
@@ -176,7 +188,7 @@ it redirects back to step one rather than rendering a broken form.
 
 **Step 3 — details.** Name, age and gender on one screen, because all three are cheap to give
 and belong together. Name validation uses `\p{L}\p{M}` — the combining-mark class is essential,
-not decoration: Indic scripts build vowels from combining marks, so `अंकिता` is letters *and*
+not decoration: Indic scripts build vowels from combining marks, so `अंकिता` is letters _and_
 marks and `\p{L}` alone would reject most names written in Devanagari, Tamil or Bengali. Age is
 gated at 18 (the real floor for investing) and capped at three digits so pasting a full date of
 birth can't slip through.
@@ -189,20 +201,20 @@ better as a reveal than as a thumbnail picked off a grid.
 
 ### 5.2 Story onboarding — Chapter 1: The Meeting
 
-**Files:** [meeting.tsx](src/app/(story)/meeting.tsx) · [story.ts](src/domain/story.ts) · [dialogue.tsx](src/components/story/dialogue.tsx) · [story-stage.tsx](src/components/story/story-stage.tsx)
+**Files:** [meeting.tsx](<src/app/(story)/meeting.tsx>) · [story.ts](src/domain/story.ts) · [dialogue.tsx](src/components/story/dialogue.tsx) · [story-stage.tsx](src/components/story/story-stage.tsx)
 
 Instead of dropping the user into a dashboard, their future self introduces itself and asks
 the one question the rest of the product hangs on.
 
-Four typed dialogue beats, each with its own facial expression, so the character *acts* the
+Four typed dialogue beats, each with its own facial expression, so the character _acts_ the
 line rather than just saying it:
 
-| Beat | Line | Face |
-|---|---|---|
-| 1 | "Hey, {name}." | `hello` |
-| 2 | "This might sound strange, but I'm you… a few years from now." | `confident` |
-| 3 | "I've seen where your money can take us." | `happy` |
-| 4 | "Before we begin, I need to understand something." | `thinking` |
+| Beat | Line                                                           | Face        |
+| ---- | -------------------------------------------------------------- | ----------- |
+| 1    | "Hey, {name}."                                                 | `hello`     |
+| 2    | "This might sound strange, but I'm you… a few years from now." | `confident` |
+| 3    | "I've seen where your money can take us."                      | `happy`     |
+| 4    | "Before we begin, I need to understand something."             | `thinking`  |
 
 Then: **"Who are we building this future for?"** — five options (parents, future family, dream
 home, financial freedom, not sure yet), each with a caption that turns the abstraction into a
@@ -239,20 +251,20 @@ reveal.
 **One source of mood.** `useAvatarState()` reads the store and returns the same state to every
 screen that shows the character. If Today said they were proud while the Future tab said they
 were sad, the character would stop reading as a person and start reading as decoration. It
-tracks four inputs: current streak, whether the streak is *broken* (zero **and** a longest run
+tracks four inputs: current streak, whether the streak is _broken_ (zero **and** a longest run
 above zero — a brand-new user has not failed at anything), whether the user invested today, and
 any milestone just reached.
 
-**Evolution stages.** The character changes *standing*, not just expression, and every stage is
+**Evolution stages.** The character changes _standing_, not just expression, and every stage is
 gated on **both** consistency and capital:
 
-| Stage | Badge | Needs streak | Needs invested |
-|---|---|---|---|
-| Just Starting | Seedling | 0 | ₹0 |
-| Building Momentum | Builder | 7 days | ₹500 |
-| Compounding | Compounder | 30 days | ₹5,000 |
-| Financially Free | Free | 100 days | ₹50,000 |
-| Founder's Circle | Founder | 365 days | ₹2,00,000 |
+| Stage             | Badge      | Needs streak | Needs invested |
+| ----------------- | ---------- | ------------ | -------------- |
+| Just Starting     | Seedling   | 0            | ₹0             |
+| Building Momentum | Builder    | 7 days       | ₹500           |
+| Compounding       | Compounder | 30 days      | ₹5,000         |
+| Financially Free  | Free       | 100 days     | ₹50,000        |
+| Founder's Circle  | Founder    | 365 days     | ₹2,00,000      |
 
 Both bars, never one: money without the habit is luck, the habit without money is a hobby.
 `stageFor(0, 500000)` still returns `starting`, and so does `stageFor(400, 100)` — both are
@@ -279,7 +291,7 @@ into the page, hiding the seam without touching the artwork.
 
 The retention engine. Two ideas do the work:
 
-1. **A streak is alive if you contributed today *or* yesterday.** It only dies once a full
+1. **A streak is alive if you contributed today _or_ yesterday.** It only dies once a full
    calendar day passes with nothing in it.
 2. **Shields are earned consistency insurance.** One per unbroken week, capped at two, spent
    automatically to absorb a missed day. Missing one day after weeks of effort should sting, not
@@ -288,28 +300,28 @@ The retention engine. Two ideas do the work:
 **Dates are local day indices, never timestamps.** A streak is a human, calendar-day concept:
 "did I invest today?" must mean the same thing at 00:05 and 23:55, and must survive the user
 flying between timezones. `dayIndex()` applies `getTimezoneOffset()` before flooring so the
-boundary lands on *local* midnight — using UTC would roll the streak over at 05:30 IST.
+boundary lands on _local_ midnight — using UTC would roll the streak over at 05:30 IST.
 
 **The state machine** (all pure functions taking an explicit `today`, so every awkward case is
 directly testable):
 
-| Situation | Result |
-|---|---|
-| First contribution | `current = 1` |
-| Same day, second contribution | `duplicate: true` — money in, streak unchanged |
-| Contributed yesterday | Alive, nothing owed |
-| Missed 1 day, 1 shield held | Shield spent, streak continues intact |
-| Missed 3 days, 2 shields held | Broken. `current = 0`, shields spent, `longest` preserved |
-| Device clock jumps backwards | Treated as "no time passed" — never punished |
-| Streak rebuilt past a milestone it never crossed | The milestone is still *owed*, not skipped |
+| Situation                                        | Result                                                    |
+| ------------------------------------------------ | --------------------------------------------------------- |
+| First contribution                               | `current = 1`                                             |
+| Same day, second contribution                    | `duplicate: true` — money in, streak unchanged            |
+| Contributed yesterday                            | Alive, nothing owed                                       |
+| Missed 1 day, 1 shield held                      | Shield spent, streak continues intact                     |
+| Missed 3 days, 2 shields held                    | Broken. `current = 0`, shields spent, `longest` preserved |
+| Device clock jumps backwards                     | Treated as "no time passed" — never punished              |
+| Streak rebuilt past a milestone it never crossed | The milestone is still _owed_, not skipped                |
 
 **Milestones and rewards** at 7 / 30 / 100 / 365 days:
 
-| Day | Reward |
-|---|---|
-| 7 | ₹200 |
-| 30 | ₹500 |
-| 100 | Special reward |
+| Day | Reward           |
+| --- | ---------------- |
+| 7   | ₹200             |
+| 30  | ₹500             |
+| 100 | Special reward   |
 | 365 | Founder's Circle |
 
 The last two pay in status rather than cash on purpose: past a hundred days the streak is worth
@@ -324,7 +336,7 @@ the gesture physically enacts the thing it commits to. Release early and nothing
 (`cancelAnimation` means the completion callback fires with `completed: false`). The ring shows a
 preview arc of where it lands after one more day, so you can see what you are filling toward.
 
-After a commit the bar stays full through the write, then *eases* to zero over 600ms rather than
+After a commit the bar stays full through the write, then _eases_ to zero over 600ms rather than
 snapping — on success the real progress rises to meet it as the charge falls away, so the arc
 holds position. Snapping made the ring lurch backwards a frame, which read as losing the day it
 had just earned.
@@ -345,15 +357,15 @@ travel or a hand-edited store can produce one.
 
 ### 5.5 Home / Today
 
-**Files:** [home.tsx](src/app/(app)/home.tsx) · [hero-carousel.tsx](src/components/home/hero-carousel.tsx) · [feature-grid.tsx](src/components/home/feature-grid.tsx)
+**Files:** [home.tsx](<src/app/(app)/home.tsx>) · [hero-carousel.tsx](src/components/home/hero-carousel.tsx) · [feature-grid.tsx](src/components/home/feature-grid.tsx)
 
-Answers one question the moment the app opens: *did I make tomorrow better today?* The
+Answers one question the moment the app opens: _did I make tomorrow better today?_ The
 portfolio number is the reward, the streak is the pressure, the single button is the whole loop.
 
 **Hero carousel.** Five paged slides carrying BlinkMoney's own hero copy **verbatim from
 blinkmoney.in**, not paraphrased — the value proposition is the one thing in this app that is
-not ours to rewrite. "Better than your *Dad's FD*", "✦ Grow ✦ Borrow ✦ *Still Grow*", "Start
-with just *₹21 a day*", "Cash without *selling*", "Your future has *a face*". It advances every
+not ours to rewrite. "Better than your _Dad's FD_", "✦ Grow ✦ Borrow ✦ _Still Grow_", "Start
+with just _₹21 a day_", "Cash without _selling_", "Your future has _a face_". It advances every
 5 seconds, restarts its clock on any manual change, **pauses the instant a finger touches it**,
 and opts out entirely under Reduced Motion. The active dot stretches into a pill rather than
 just brightening, so position is legible at a glance.
@@ -366,7 +378,7 @@ streak is at risk. The flame emoji is lit **only while the streak is alive** —
 dead streak would make it decoration; withheld, it is worth earning back. A progress bar shows
 distance to the next milestone.
 
-**Daily action.** One button: *Invest ₹21 today*. Once done it is replaced by a calm "Today is
+**Daily action.** One button: _Invest ₹21 today_. Once done it is replaced by a calm "Today is
 done" card. The hint line changes to a warning when the streak is at risk.
 
 **Feature grid.** Six cards — Wealth Streak, Time Machine, Borrow don't break, Future You, Refer
@@ -379,20 +391,20 @@ silently collapses to one card per row.
 
 ### 5.6 Future Feed
 
-**Files:** [future.tsx](src/app/(app)/future.tsx) · [feed.ts](src/domain/feed.ts) · [future-hero.tsx](src/components/future/future-hero.tsx) · [feed-row.tsx](src/components/future/feed-row.tsx)
+**Files:** [future.tsx](<src/app/(app)/future.tsx>) · [feed.ts](src/domain/feed.ts) · [future-hero.tsx](src/components/future/future-hero.tsx) · [feed-row.tsx](src/components/future/feed-row.tsx)
 
-The other tabs are about money. This one answers *"what changed in my future today?"*.
+The other tabs are about money. This one answers _"what changed in my future today?"_.
 
 A time-of-day greeting, then the character reporting their own standing with a tappable set of
 voice lines that cycle (always more than one — a card that says the same thing twice is not
 worth tapping). Then four rows, in fixed order:
 
-| Row | What it says |
-|---|---|
-| **Growth** | "Your investments grew — ₹X today" |
-| **Streak** | "47 day streak continues! — You're in the top 2% of users" |
-| **Goal** | "Dream home is now — 3.2% funded" (target from the Chapter 1 answer) |
-| **Safety** | "Emergency fund can now — protect you for 3.6 months" |
+| Row        | What it says                                                         |
+| ---------- | -------------------------------------------------------------------- |
+| **Growth** | "Your investments grew — ₹X today"                                   |
+| **Streak** | "47 day streak continues! — You're in the top 2% of users"           |
+| **Goal**   | "Dream home is now — 3.2% funded" (target from the Chapter 1 answer) |
+| **Safety** | "Emergency fund can now — protect you for 3.6 months"                |
 
 Every line is computed in `@/domain/feed`, not assembled in JSX, so copy and arithmetic cannot
 drift apart — which is exactly how a fintech ends up cheerfully reporting growth on an empty
@@ -418,7 +430,7 @@ Below the feed, a projection table at 1 / 3 / 5 / 10 / 20 years, and a "Start ov
 
 ### 5.7 Borrow Without Break (Break Glass)
 
-**Files:** [borrow.tsx](src/app/(app)/borrow.tsx) · [simulation.ts](src/domain/simulation.ts) (`comparePaths`)
+**Files:** [borrow.tsx](<src/app/(app)/borrow.tsx>) · [simulation.ts](src/domain/simulation.ts) (`comparePaths`)
 
 The product's whole thesis in one screen: **you can have the cash without selling the future.**
 
@@ -428,12 +440,12 @@ become. With the test-suite figures, that gap is **₹20,228 over ten years on a
 
 The mechanics mirror BlinkMoney's published terms:
 
-| Constant | Value | Source |
-|---|---|---|
-| `ANNUAL_RETURN` | 15% p.a. | "Save @ 15% p.a." |
-| `BORROW_RATE` | 9.99% p.a. | "Borrow @ 9.99% p.a." |
-| `MAX_LTV` | 50% | Loan-to-value ceiling |
-| `MIN_DAILY_AMOUNT` | ₹21 | "Starts at ₹21/day" |
+| Constant           | Value      | Source                |
+| ------------------ | ---------- | --------------------- |
+| `ANNUAL_RETURN`    | 15% p.a.   | "Save @ 15% p.a."     |
+| `BORROW_RATE`      | 9.99% p.a. | "Borrow @ 9.99% p.a." |
+| `MAX_LTV`          | 50%        | Loan-to-value ceiling |
+| `MIN_DAILY_AMOUNT` | ₹21        | "Starts at ₹21/day"   |
 
 The screen shows available headroom, an LTV bar drawn **against the 50% cap, not against 100%**
 (a bar that fills at 50% LTV would read as "half used" when it is actually maxed out), four
@@ -452,11 +464,11 @@ so the UI never offers a "Try again" that cannot possibly succeed.
 
 ### 5.8 Invest
 
-**Files:** [invest/index.tsx](src/app/(app)/invest/index.tsx) · [use-time-machine-portfolio.ts](src/hooks/use-time-machine-portfolio.ts)
+**Files:** [invest/index.tsx](<src/app/(app)/invest/index.tsx>) · [use-time-machine-portfolio.ts](src/hooks/use-time-machine-portfolio.ts)
 
 The entry point to the Time Machine. Everything above the green card states where you are —
 current value, all-time gain, daily SIP, invested, units, borrowable. The green gradient card is
-the only thing on screen that talks about where you are *going*, and it exists to get tapped.
+the only thing on screen that talks about where you are _going_, and it exists to get tapped.
 
 Its headline figure comes from the **same engine** the Time Machine uses, so the promise on this
 card and the hero on the next screen can never disagree.
@@ -470,7 +482,7 @@ fresh install **without ever overwriting a real number with a fake one**.
 
 ### 5.9 Wealth Time Machine
 
-**Files:** [time-machine.tsx](src/app/(app)/invest/time-machine.tsx) · [projection.ts](src/lib/projection.ts) · [time-machine.ts](src/store/time-machine.ts) · [time-machine-api.ts](src/services/time-machine-api.ts) · [scrubber.tsx](src/components/time-machine/scrubber.tsx) · [projection-chart.tsx](src/components/time-machine/projection-chart.tsx) · [commit-sheet.tsx](src/components/time-machine/commit-sheet.tsx) · [states.tsx](src/components/time-machine/states.tsx) · [success.tsx](src/app/(app)/invest/success.tsx)
+**Files:** [time-machine.tsx](<src/app/(app)/invest/time-machine.tsx>) · [projection.ts](src/lib/projection.ts) · [time-machine.ts](src/store/time-machine.ts) · [time-machine-api.ts](src/services/time-machine-api.ts) · [scrubber.tsx](src/components/time-machine/scrubber.tsx) · [projection-chart.tsx](src/components/time-machine/projection-chart.tsx) · [commit-sheet.tsx](src/components/time-machine/commit-sheet.tsx) · [states.tsx](src/components/time-machine/states.tsx) · [success.tsx](<src/app/(app)/invest/success.tsx>)
 
 The largest feature in the build. **One screen, three modes** — scrubbing, applying a lever, and
 comparing two futures are the same question at different magnifications, so switching between
@@ -480,21 +492,21 @@ them never navigates. The chart you were reading stays on screen and changes sha
 
 Drag the scrubber and travel 2026 → 2041. The hero counter, the chart marker and the year label
 are driven from **one shared value on the UI thread**, so all three move together with no React
-render anywhere in the drag loop. The eyebrow reads *"You in 2036 · age 34"*.
+render anywhere in the drag loop. The eyebrow reads _"You in 2036 · age 34"_.
 
 The scrubber owns its shared value in the hook rather than the component, deliberately: a shared
-value written inside the component it was passed *to* is a prop mutation, which the React
+value written inside the component it was passed _to_ is a prop mutation, which the React
 Compiler rejects outright. The commit fires on `onFinalize`, not `onEnd` — a gesture cancelled by
 a parent scroll never reaches `onEnd`, and the committed year would silently disagree with the
 knob. The 3px track is the affordance; the touch target around it is a full 44pt.
 
 #### Mode B — levers ("What if you…")
 
-| Lever | Effect | Tone |
-|---|---|---|
-| Add ₹100 / day | SIP becomes ₹200/day | positive |
-| Skip 3 months | Pause your SIP | negative |
-| Withdraw ₹50,000 | Sell units today | negative |
+| Lever            | Effect               | Tone     |
+| ---------------- | -------------------- | -------- |
+| Add ₹100 / day   | SIP becomes ₹200/day | positive |
+| Skip 3 months    | Pause your SIP       | negative |
+| Withdraw ₹50,000 | Sell units today     | negative |
 
 Each row shows its own live delta at the currently selected year. Applying one draws the levered
 curve over a ghost of your current path and turns the hero into a green/red delta.
@@ -506,7 +518,7 @@ lying.
 #### Mode C — two futures
 
 Your consistent path against starting five years later, with the gap named in rupees and a card
-explaining *why* it is so wide: the first five years contribute the least money and the most
+explaining _why_ it is so wide: the first five years contribute the least money and the most
 time, and time is the part you can't buy back later.
 
 #### The engine
@@ -518,13 +530,13 @@ the only way a screen full of future rupees stays honest when the rate is user-s
 
 - Compounds **monthly**, emits **yearly** points. Annual compounding would understate a daily SIP
   by treating eleven months of deposits as if they arrived on New Year's Eve.
-- Growth is applied *before* the deposit each month: a contribution made this month has not been
+- Growth is applied _before_ the deposit each month: a contribution made this month has not been
   invested long enough to have earned anything.
 - `DAYS_PER_MONTH = 365.2425 / 12` — the Gregorian calendar's real 400-year mean.
 - Every input is guarded. A corrupted store, a lever on an empty portfolio, or a withdrawal
   larger than the holdings all produce a sensible curve rather than `NaN`, which would render as
   a blank hero on a money screen.
-- **Memoised, LRU-bounded at 64 entries.** Scrubbing changes only the *selected year*, not the
+- **Memoised, LRU-bounded at 64 entries.** Scrubbing changes only the _selected year_, not the
   curve, so the same series is requested every frame of a drag. Recomputing 180 months per frame
   is exactly what turns a 60fps gesture into a 40fps one.
 
@@ -563,13 +575,13 @@ idle → loading → ready | error | offline_queued
 ready ↔ lever_preview → committing → success | error | offline_queued
 ```
 
-| State | What the user sees |
-|---|---|
-| **Loading** | Skeleton blocks shaped like the arriving screen — hero, sub, chart, card. The layout does not shift when data lands. |
-| **Error** | *"We couldn't load market data. Your money is safe and nothing was changed."* The second half is the part that actually matters on a money screen. |
-| **Empty** | *"There's no future to show yet. Start investing from ₹21 a day."* Names the floor, so the user isn't left guessing whether they can afford to. |
-| **Offline** | Banner, dimmed hero, last-synced label — **and scrubbing still works**, because projections are computed on device. |
-| **Queued** | *"Your SIP change to ₹200/day is saved. We'll submit it once you're back online — it won't be sent twice."* The idempotency key is why that last clause can be promised rather than hoped for. |
+| State       | What the user sees                                                                                                                                                                             |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Loading** | Skeleton blocks shaped like the arriving screen — hero, sub, chart, card. The layout does not shift when data lands.                                                                           |
+| **Error**   | _"We couldn't load market data. Your money is safe and nothing was changed."_ The second half is the part that actually matters on a money screen.                                             |
+| **Empty**   | _"There's no future to show yet. Start investing from ₹21 a day."_ Names the floor, so the user isn't left guessing whether they can afford to.                                                |
+| **Offline** | Banner, dimmed hero, last-synced label — **and scrubbing still works**, because projections are computed on device.                                                                            |
+| **Queued**  | _"Your SIP change to ₹200/day is saved. We'll submit it once you're back online — it won't be sent twice."_ The idempotency key is why that last clause can be promised rather than hoped for. |
 
 **Hidden dev menu:** triple-tap the nav title to cycle normal → slow → offline → failing →
 normal. Every state above is reachable on a real device without airplane mode, a proxy, or a
@@ -579,7 +591,7 @@ rebuild.
 
 ### 5.10 Rewards and referrals
 
-**Files:** [rewards.tsx](src/app/(app)/rewards.tsx) · [referral.ts](src/domain/referral.ts)
+**Files:** [rewards.tsx](<src/app/(app)/rewards.tsx>) · [referral.ts](src/domain/referral.ts)
 
 The streak's loop, pointed outward: you share proof of a habit you are proud of.
 
@@ -589,11 +601,11 @@ because the first is something a person says and the second is something an app 
 **The ladder** is deliberately shallow — three rungs, the first at a single friend. A programme
 whose first reward needs five invites reads as something for other people.
 
-| Friends | Reward |
-|---|---|
-| 1 | ₹100 into your portfolio |
-| 3 | ₹500 + a permanent streak shield |
-| 5 | ₹1,000 + Founder's Circle access |
+| Friends | Reward                           |
+| ------- | -------------------------------- |
+| 1       | ₹100 into your portfolio         |
+| 3       | ₹500 + a permanent streak shield |
+| 5       | ₹1,000 + Founder's Circle access |
 
 **Invite codes** are six characters, derived from the phone number rather than stored, so they
 survive a wiped cache and can never disagree with themselves across devices. Details that matter:
@@ -631,18 +643,18 @@ says nothing, and pretending otherwise makes the surface feel automated.
 
 Four targets — Download, Instagram, WhatsApp, More — and **everything degrades**:
 
-| Failure | Fallback |
-|---|---|
-| `react-native-view-shot` absent from the client | Caught locally; shares caption as text |
-| `expo-sharing` unavailable | Text share |
-| Photos permission denied | Plain message, no crash |
-| `expo-media-library` absent | System share sheet (which includes the gallery) |
-| WhatsApp not installed | Stated plainly, then the share sheet |
-| Instagram story composer unavailable | System sheet with the image |
-| User dismisses the sheet | **Not** treated as an error — they simply did not share |
+| Failure                                         | Fallback                                                |
+| ----------------------------------------------- | ------------------------------------------------------- |
+| `react-native-view-shot` absent from the client | Caught locally; shares caption as text                  |
+| `expo-sharing` unavailable                      | Text share                                              |
+| Photos permission denied                        | Plain message, no crash                                 |
+| `expo-media-library` absent                     | System share sheet (which includes the gallery)         |
+| WhatsApp not installed                          | Stated plainly, then the share sheet                    |
+| Instagram story composer unavailable            | System sheet with the image                             |
+| User dismisses the sheet                        | **Not** treated as an error — they simply did not share |
 
 The capture module is imported **dynamically inside the handler**, not at module scope. It is a
-native module, and a client that does not carry it throws on *import* — which expo-router
+native module, and a client that does not carry it throws on _import_ — which expo-router
 surfaces as `Cannot read property 'ErrorBoundary' of undefined`, taking the whole navigator down
 rather than just this button.
 
@@ -668,13 +680,13 @@ blur is weaker and that tint is what carries the panel there. It shows the avata
 badge and current streak, then: My Profile · Refer a Friend · FAQ · Logout.
 
 **Logout is named plainly.** This build has no server-side account, so signing out is a wipe —
-saying "you can sign back in" would be a lie. The confirmation says exactly that: *"Your streak,
+saying "you can sign back in" would be a lie. The confirmation says exactly that: _"Your streak,
 contributions and Future You live on this device. Logging out clears them and starts you at
-sign-up again."* The destructive row sits behind a hairline divider so it is never the row a thumb
+sign-up again."_ The destructive row sits behind a hairline divider so it is never the row a thumb
 lands on by momentum.
 
 **My Profile** is a read-only account summary. Everything on it already exists somewhere in the
-product — the point is that it exists in *one* place, so a user can answer "what does this app
+product — the point is that it exists in _one_ place, so a user can answer "what does this app
 actually know about me?" without touring five tabs. Avatar, name, DNA badge, stage tagline,
 progress to the next stage with the binding constraint named, then Account / Progress / Why you
 started / Referrals sections.
@@ -699,7 +711,7 @@ discard.
 
 ### 5.14 Navigation shell
 
-**Files:** [(app)/_layout.tsx](src/app/(app)/_layout.tsx) · [tab-bar.tsx](src/components/ui/tab-bar.tsx) · [back-button.tsx](src/components/ui/back-button.tsx)
+**Files:** [(app)/\_layout.tsx](<src/app/(app)/_layout.tsx>) · [tab-bar.tsx](src/components/ui/tab-bar.tsx) · [back-button.tsx](src/components/ui/back-button.tsx)
 
 Five tabs mirroring BlinkMoney's own loop: **Home · Invest · Borrow · Future · Rewards**.
 Declared as explicit children rather than left to file order, because the order of these five is
@@ -708,7 +720,7 @@ the story the navigation tells.
 The tab bar is hand-written rather than configured through `tabBarStyle`, because the default bar
 cannot express the brand: a pill slides between tabs on the UI thread, icons gain weight rather
 than just colour when active, and the bar sits on the page background instead of a lighter chrome
-layer. The pill is positioned from a *measured* width divided by the tab count, so it stays
+layer. The pill is positioned from a _measured_ width divided by the tab count, so it stays
 aligned on any screen size and after a rotation, with no hard-coded numbers.
 
 Streak, Profile, FAQ and Share Milestone are **detail routes outside the tabs** — they slide in
@@ -743,7 +755,7 @@ src/
 through `useSyncExternalStore`:
 
 ```ts
-const streak = useFuture(select.streak);   // subscribes to one slice only
+const streak = useFuture(select.streak); // subscribes to one slice only
 ```
 
 With a plain Context value, every screen subscribed to the provider re-renders on any change — so
@@ -762,7 +774,7 @@ outranks the smaller acknowledgements — only one can be shown.
 
 **React Compiler is enabled** (`experiments.reactCompiler` in [app.json](app.json)). Several
 comments in the codebase document places where a hand-written `useMemo`/`useCallback` was
-*removed* because the compiler cannot verify it and refuses to compile around it.
+_removed_ because the compiler cannot verify it and refuses to compile around it.
 
 ---
 
@@ -802,7 +814,7 @@ bad division can never render as "₹NaN" on a money screen.
 
 **File:** [storage.ts](src/domain/storage.ts) · AsyncStorage, key `futureos.state.v1`, schema v3.
 
-A returning user's streak *is* the product, so losing it to a bad write or a shape change is
+A returning user's streak _is_ the product, so losing it to a bad write or a shape change is
 unacceptable. Every read is defensive:
 
 - **Structural validation, not version trust.** `isValid()` checks the actual shape, because the
@@ -813,7 +825,7 @@ unacceptable. Every read is defensive:
   - **v1 → v2:** the standalone gender screen was folded into details. Anyone stored mid-flow on
     the retired `'gender'` step would otherwise fall through the boot gate's default and be sent
     back to the very first screen with a verified number already in hand.
-  - **v2 → v3:** referrals added. `referralsAccepted` is *backfilled* rather than left undefined,
+  - **v2 → v3:** referrals added. `referralsAccepted` is _backfilled_ rather than left undefined,
     because the reward ladder does arithmetic on it and `undefined + 1` renders as `NaN` on a
     rewards screen.
 - **Corrupt payload → clean start.** Crash-looping on every launch is worse than losing history;
@@ -845,16 +857,16 @@ with:
 
 **Error taxonomy** with human copy co-located, so no case can go unhandled:
 
-| Code | Title | Retryable |
-|---|---|---|
-| `network` | No connection | ✅ |
-| `timeout` | Taking too long | ✅ |
-| `server` | Something broke | ✅ |
-| `validation` | That won't work | ❌ |
-| `limit_exceeded` | Over your limit | ❌ |
-| `not_found` | Nothing here yet | ❌ |
-| `storage` | Couldn't save | ❌ |
-| `cancelled` | Cancelled | ❌ |
+| Code             | Title            | Retryable |
+| ---------------- | ---------------- | --------- |
+| `network`        | No connection    | ✅        |
+| `timeout`        | Taking too long  | ✅        |
+| `server`         | Something broke  | ✅        |
+| `validation`     | That won't work  | ❌        |
+| `limit_exceeded` | Over your limit  | ❌        |
+| `not_found`      | Nothing here yet | ❌        |
+| `storage`        | Couldn't save    | ❌        |
+| `cancelled`      | Cancelled        | ❌        |
 
 **Endpoints:** `getSession` · `requestOtp` · `verifyOtp` · `saveDetails` · `savePurpose` ·
 `setDailyAmount` · `recordReferral` · `postContribution` · `getPathComparison` · `postBorrow` ·
@@ -882,7 +894,7 @@ a design.
 - **Palette:** dark-first, with a brand green, gold accents, and semantic tokens
   (`bgPage`/`bgCard`/`bgElevated`/`border`/`textPrimary`/`textSecondary`/`textTertiary`).
   `withAlpha()` derives tints so no component ever invents a colour.
-- **Two token sets, on purpose.** `@/theme` serves the main app screens; `@/theme/tokens` is a
+- **Two token sets, on purpose.** `@/theme` serves the FutureOS screens; `@/theme/tokens` is a
   tighter set matching the Time Machine's prototype spec to the pixel. They coexist rather than
   being force-merged, so neither surface drifts from its reference.
 - **Shared primitives:** `Screen` (safe areas, max content width, pull-to-refresh), `Card`,
@@ -942,15 +954,15 @@ A streak takes weeks to feel, which makes it invisible in a review session. Ever
 real endpoints — so shields, milestones and celebrations fire exactly as they would in life, just
 faster.
 
-| Control | Where | What it does |
-|---|---|---|
-| **Live 7 days** | Streak screen | Walks the clock forward a day at a time, contributing on each |
-| **Skip a day** | Streak screen | Advances the simulated clock without contributing — watch a shield get spent, then the streak break |
-| **Back to today** | Streak screen | Returns `dayOffset` to 0 |
-| **Simulate a friend joining** | Rewards | Fires the same event a referral webhook would |
-| **Triple-tap the title** | Time Machine | Cycles normal → slow → offline → failing |
-| **Start over** | Future tab | Full reset to first-run state |
-| **Logout** | Profile menu | Same wipe, with a confirmation that says so |
+| Control                       | Where         | What it does                                                                                        |
+| ----------------------------- | ------------- | --------------------------------------------------------------------------------------------------- |
+| **Live 7 days**               | Streak screen | Walks the clock forward a day at a time, contributing on each                                       |
+| **Skip a day**                | Streak screen | Advances the simulated clock without contributing — watch a shield get spent, then the streak break |
+| **Back to today**             | Streak screen | Returns `dayOffset` to 0                                                                            |
+| **Simulate a friend joining** | Rewards       | Fires the same event a referral webhook would                                                       |
+| **Triple-tap the title**      | Time Machine  | Cycles normal → slow → offline → failing                                                            |
+| **Start over**                | Future tab    | Full reset to first-run state                                                                       |
+| **Logout**                    | Profile menu  | Same wipe, with a confirmation that says so                                                         |
 
 The simulated clock is always **disclosed on screen** ("Simulated clock is 7 days ahead of real
 time") whenever it is non-zero.
@@ -1004,15 +1016,15 @@ queue; image capture and OS share; every animation and gesture.
 
 **Mocked, and labelled as such in the code:**
 
-| Thing | Why | Where |
-|---|---|---|
-| The backend | No server in scope | `services/api/client.ts` |
-| OTP `1111` | No SMS channel; shown on screen so the flow is testable | `domain/validation.ts` |
-| Referral acceptance | A webhook with nothing to fire it | `endpoints.recordReferral` |
-| Cohort percentile | No data to ask; band is documented, not invented per user | `domain/feed.ts` |
-| `ASSUMED_MONTHLY_EXPENSE` ₹25,000 | Stated on screen wherever "months of cover" appears, so no decision rests on a hidden assumption | `domain/simulation.ts` |
-| Time Machine fixture | A fresh account is a flat line at zero; falls back only when there are no real holdings | `services/time-machine-api.ts` |
-| Units (NAV ÷ 210) | The simulation tracks rupees, not units — derived so the row has something honest in it | `hooks/use-time-machine-portfolio.ts` |
+| Thing                             | Why                                                                                              | Where                                 |
+| --------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------- |
+| The backend                       | No server in scope                                                                               | `services/api/client.ts`              |
+| OTP `1111`                        | No SMS channel; shown on screen so the flow is testable                                          | `domain/validation.ts`                |
+| Referral acceptance               | A webhook with nothing to fire it                                                                | `endpoints.recordReferral`            |
+| Cohort percentile                 | No data to ask; band is documented, not invented per user                                        | `domain/feed.ts`                      |
+| `ASSUMED_MONTHLY_EXPENSE` ₹25,000 | Stated on screen wherever "months of cover" appears, so no decision rests on a hidden assumption | `domain/simulation.ts`                |
+| Time Machine fixture              | A fresh account is a flat line at zero; falls back only when there are no real holdings          | `services/time-machine-api.ts`        |
+| Units (NAV ÷ 210)                 | The simulation tracks rupees, not units — derived so the row has something honest in it          | `hooks/use-time-machine-portfolio.ts` |
 
 **Known limits.** Loans accrue interest but there is no repayment flow. Rewards are displayed and
 gated but not credited to the balance. Only Chapter 1 of the story exists (the renderer supports
@@ -1033,33 +1045,33 @@ Module | Priority | Edge Case ID | Scenario | Expected Behavior | Status
 
 **Priority — release gate**
 
-| | Meaning | Count |
-|---|---|---|
-| **P0** | Crash, data loss, incorrect money value, security, or dead-end navigation | **38** |
-| **P1** | Streak logic, future progress, onboarding, borrowing, referral integrity | **101** |
-| **P2** | Loading states, formatting, UI consistency, animation correctness | **58** |
-| **P3** | Cosmetic polish | **14** |
+|        | Meaning                                                                   | Count   |
+| ------ | ------------------------------------------------------------------------- | ------- |
+| **P0** | Crash, data loss, incorrect money value, security, or dead-end navigation | **38**  |
+| **P1** | Streak logic, future progress, onboarding, borrowing, referral integrity  | **101** |
+| **P2** | Loading states, formatting, UI consistency, animation correctness         | **58**  |
+| **P3** | Cosmetic polish                                                           | **14**  |
 
 **Status — engineering maturity ladder**
 
-| | Meaning | Count |
-|---|---|---|
-| **Verified** | A passing assertion in `tests/` covers it today | **61** |
-| **Tested** | A deterministic in-app repro exists (demo controls, dev menu) and has been exercised | **7** |
-| **Implemented** | The code path exists but has no automated or repeatable manual verification | **108** |
-| **Pending** | Not built. These are the gaps a release decision has to be made about | **35** |
+|                 | Meaning                                                                              | Count   |
+| --------------- | ------------------------------------------------------------------------------------ | ------- |
+| **Verified**    | A passing assertion in `tests/` covers it today                                      | **61**  |
+| **Tested**      | A deterministic in-app repro exists (demo controls, dev menu) and has been exercised | **7**   |
+| **Implemented** | The code path exists but has no automated or repeatable manual verification          | **108** |
+| **Pending**     | Not built. These are the gaps a release decision has to be made about                | **35**  |
 
 **Ownership by module**
 
-| Module | Cases | Module | Cases |
-|---|---|---|---|
-| Wealth Streak | 32 | Storage | 13 |
-| Time Machine | 28 | Borrow | 13 |
-| Onboarding | 27 | Accessibility | 10 |
-| Referral | 23 | Money Engine | 9 |
-| Network | 16 | Future You | 9 |
-| Future Feed | 15 | Profile/Menu | 7 |
-| Demo Controls | 3 | One Decision · Regret Simulator · Family Mode | 2 each |
+| Module        | Cases | Module                                        | Cases  |
+| ------------- | ----- | --------------------------------------------- | ------ |
+| Wealth Streak | 32    | Storage                                       | 13     |
+| Time Machine  | 28    | Borrow                                        | 13     |
+| Onboarding    | 27    | Accessibility                                 | 10     |
+| Referral      | 23    | Money Engine                                  | 9      |
+| Network       | 16    | Future You                                    | 9      |
+| Future Feed   | 15    | Profile/Menu                                  | 7      |
+| Demo Controls | 3     | One Decision · Regret Simulator · Family Mode | 2 each |
 
 Three notes on the module taxonomy. **One Decision** is the SIP commit sheet and its success
 screen. **Regret Simulator** is the Time Machine's two-futures mode. **Family Mode is not
@@ -1096,5 +1108,4 @@ a decision, not necessarily code.
 ---
 
 **Invest. Grow. Borrow. Keep Growing.**
-BlinkMoney Future doesn't replace that loop — it gives the user a reason to come back to it
-tomorrow.
+FutureOS doesn't replace that loop — it gives the user a reason to come back to it tomorrow.
